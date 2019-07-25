@@ -1,0 +1,17 @@
+
+package interfaces;
+
+import java.util.List;
+import modelo.Persona;
+
+
+public interface CrudPersona {
+    
+    public List listarPer();
+    public Persona listId(int id);
+    public int agregarPer(Persona per);
+    public int actualizarPer(Persona per);
+    public void eliminarPer(int id);
+    
+    
+}
