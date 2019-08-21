@@ -11,7 +11,7 @@
         <div class="container col-lg-3">
             <form action="Controlador" method="POST">
                 <div class="form-group text-center">
-                    <img src="img/logo.jpg" height="300" width="300"/>
+                    <img src="img/AJP.jpg" height="300" width="300"/>
                     <p><strong>Sistema de Login JudoPIC</strong></p>
                 </div>
                 <div class="form-group">

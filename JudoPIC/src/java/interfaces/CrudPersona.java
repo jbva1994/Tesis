@@ -12,6 +12,7 @@ public interface CrudPersona {
     public int agregarPer(Persona per);
     public int actualizarPer(Persona per);
     public void eliminarPer(int id);
-    
+    public List buscarPer(String texto);
+      
     
 }

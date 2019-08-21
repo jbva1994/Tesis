@@ -10,7 +10,7 @@ public class Persona {
     String clave;
     //InputStream guardarimg;
     //private byte[] mostrarimg;
-    String foto;
+    InputStream foto;
     String cedula;
     String nombre;
     String apellido;
@@ -25,7 +25,7 @@ public class Persona {
 
     }
 
-    public Persona(String usuario, String clave, String foto, String cedula, String nombre, String apellido, String fechaNacimiento, String tipo, String grado, String categoria, String sexo, String peso) {
+    public Persona(String usuario, String clave, InputStream foto, String cedula, String nombre, String apellido, String fechaNacimiento, String tipo, String grado, String categoria, String sexo, String peso) {
         this.usuario = usuario;
         this.clave = clave;
         this.foto = foto;
@@ -65,11 +65,11 @@ public class Persona {
         this.clave = clave;
     }
 
-    public String getFoto() {
+    public InputStream getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(InputStream foto) {
         this.foto = foto;
     }
 

@@ -54,7 +54,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <div class=\"container col-lg-3\">\n");
       out.write("            <form action=\"Controlador\" method=\"POST\">\n");
       out.write("                <div class=\"form-group text-center\">\n");
-      out.write("                    <img src=\"img/logo.jpg\" height=\"300\" width=\"300\"/>\n");
+      out.write("                    <img src=\"img/AJP.jpg\" height=\"300\" width=\"300\"/>\n");
       out.write("                    <p><strong>Sistema de Login JudoPIC</strong></p>\n");
       out.write("                </div>\n");
       out.write("                <div class=\"form-group\">\n");

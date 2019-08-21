@@ -5,8 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import config.Conexion;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Persona;
-
 
 public class LoginDAO implements Validar {
 
@@ -14,7 +15,6 @@ public class LoginDAO implements Validar {
     Conexion cn = new Conexion();
     PreparedStatement ps;
     ResultSet rs;
-    
 
     @Override
     public int validar(Persona per) {
@@ -40,6 +40,24 @@ public class LoginDAO implements Validar {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    public List usuario() {
+        String sql = "Select * from persona where usuario=?";
+        List<Persona> lista = new ArrayList<>();
+        try {
+             con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Persona per = new Persona();
+                per.setUsuario(rs.getString("usuario"));
+                lista.add(per);
+            }
+        } catch (Exception e) {
+           
+        }
+        return lista;
     }
 
 }
