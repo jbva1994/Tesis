@@ -7,7 +7,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
         <nav class="navbar navbar-expand-lg navbar-light bg-dark"> 
 
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -34,11 +33,7 @@
                     </div>
                 </ul>
             </div>
-            <div class="dropdown nav-item justify-content-end"> 
-                <%
-          session.invalidate();
-          
-        %>
+            <div class="dropdown nav-item justify-content-end">      
                 <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesion</a>
                 <div class="dropdown-menu text-center">
 
@@ -47,9 +42,9 @@
                     <a>Usuario:</a><br>
                     <a>${applicationScope.usuario}</a>
                     <div class="dropdown-divider"></div>
-                    <form action="Controlador" method="POST">
-                        <a type="submit" name="accion" value="Salir" class="dropdown-item">Salir</a>
-                    </form>
+                  
+                    <a name="accion" value="Salir" href="ControladorSession" class="dropdown-item">Salir</a>
+                    
                 </div>
             </div>
 

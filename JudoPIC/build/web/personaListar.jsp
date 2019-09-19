@@ -44,9 +44,7 @@
                     <a>Usuario:</a><br>
                     <a>${applicationScope.usuario}</a>
                     <div class="dropdown-divider"></div>
-                    <form accion="Controlador" method="POST">
-                        <a name="accion" value="Salir" href="login.jsp" class="dropdown-item">Salir</a>
-                    </form>
+                    <a name="accion" value="Salir" href="ControladorSession" class="dropdown-item">Salir</a>
                 </div>
             </div>
 
@@ -106,7 +104,7 @@
                                         <td>${per.getPeso()}</td>
                                         <td>
                                             <a class="btn btn-warning" href="ControladorPer?menu=Persona&accion=Editar&id=${per.getId()}">Editar  </a>
-                                            <a class="btn btn-danger" href="ControladorPer?menu=Persona&accion=Eliminar&id=${per.getId()}">Eliminar</a>
+                                            <a class="btn btn-danger" href="ControladorPer?menu=Persona&accion=Eliminar&id=${per.getId()}">Eliminar><i class="glyphicon glyphicon-trash"></i></a>
                                         </td>
                                     </tr>
                                 </c:forEach>

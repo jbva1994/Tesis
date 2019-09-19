@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import modelo.Persona;
 import modelo.TestPedagogico;
@@ -29,12 +31,28 @@ public class ControladorPer extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        per = (Persona) session.getAttribute("usuario");
+        if (per == null) {
+            request.getRequestDispatcher("ControladorErrorSession").forward(request, response);
+        }
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
         if (menu.equals("Principal")) {
-            request.getRequestDispatcher("principal.jsp").forward(request, response);
+
+            per = (Persona) session.getAttribute("usuario");
+            if (per == null) {
+                request.getRequestDispatcher("ControladorErrorSession").forward(request, response);
+            } else {
+                request.getRequestDispatcher("principal.jsp").forward(request, response);
+            }
         }
         if (menu.equals("Persona")) {
+            per = (Persona) session.getAttribute("usuario");
+            if (per == null) {
+                request.getRequestDispatcher("ControladorErrorSession").forward(request, response);
+            }
             switch (accion) {
                 case "Listar":
                     List<Persona> lista = pdao.listarPer();
@@ -42,7 +60,7 @@ public class ControladorPer extends HttpServlet {
                     request.getRequestDispatcher("personaListar.jsp").forward(request, response);
                     break;
                 case "Agregar":
-                    String usuario = request.getParameter("txtUsuario");
+                     String usuario = request.getParameter("txtUsuario");
                     //String myHash;
                     Random random = new Random();
                     random.nextInt(999999);
@@ -72,7 +90,6 @@ public class ControladorPer extends HttpServlet {
                     per.setSexo(sexo);
                     per.setPeso(peso);
                     pdao.agregarPer(per);
-                    //request.setAttribute("Mensaje", "Usuario agregado con exito");
                     request.getRequestDispatcher("ControladorPer?menu=Persona&accion=Enviar").forward(request, response);
                     break;
                 case "Enviar":
@@ -117,7 +134,6 @@ public class ControladorPer extends HttpServlet {
                     per.setPeso(pesoA);
                     per.setId(idp);
                     pdao.actualizarPer(per);
-                    //request.setAttribute("Mensaje", "Usuario actualizado con exito");
                     request.getRequestDispatcher("ControladorPer?menu=Persona&accion=EnviarActualizado").forward(request, response);
                     break;
                 case "EnviarActualizado":
@@ -146,6 +162,10 @@ public class ControladorPer extends HttpServlet {
         }
 
         if (menu.equals("Test")) {
+             per = (Persona) session.getAttribute("usuario");
+            if (per == null) {
+                request.getRequestDispatcher("ControladorErrorSession").forward(request, response);
+            }
             switch (accion) {
                 case "Listar":
                     List lista = tdao.listarTest();
@@ -154,7 +174,7 @@ public class ControladorPer extends HttpServlet {
                     break;
                 case "Agregar":
                     String cedula = request.getParameter("txtCedula");
-                    Persona pe=tdao.buscarId(cedula);
+                    Persona pe = tdao.buscarId(cedula);
                     int idpersona = pe.getId();
                     int barras = Integer.parseInt(request.getParameter("txtBarras"));
                     int paralelas = Integer.parseInt(request.getParameter("txtParalelas"));
@@ -199,7 +219,7 @@ public class ControladorPer extends HttpServlet {
                     break;
                 case "Actualizar":
                     String cedulaA = request.getParameter("txtCedula");
-                    Persona peA=tdao.buscarId(cedulaA);
+                    Persona peA = tdao.buscarId(cedulaA);
                     int idpersonaA = peA.getId();
                     int barrasA = Integer.parseInt(request.getParameter("txtBarras"));
                     int paralelasA = Integer.parseInt(request.getParameter("txtParalelas"));

@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <title>Editar Persona</title>
+        <title>JSP Page</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark"> 
@@ -44,9 +44,7 @@
                     <a>Usuario:</a><br>
                     <a>${applicationScope.usuario}</a>
                     <div class="dropdown-divider"></div>
-                    <form accion="Controlador" method="POST">
-                        <a name="accion" value="Salir" href="login.jsp" class="dropdown-item">Salir</a>
-                    </form>
+                    <a name="accion" value="Salir" href="ControladorSession" class="dropdown-item">Salir</a>
                 </div>
             </div>
 
@@ -70,9 +68,9 @@
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="validationTooltip02">Clave</label>
-                                    <input type="password" value="${peredit.getClave()}" name="txtClave" class="form-control" id="validationTooltip02" readonly>
+                                     <input type="password" value="${peredit.getClave()}" name="txtClave" class="form-control" id="validationTooltip02" readonly>
                                     <div class="invalid-feedback">
-   
+                                        Por favor rellene este campo!
                                     </div>
                                 </div>               
                             </div>

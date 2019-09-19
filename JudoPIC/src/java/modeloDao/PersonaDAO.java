@@ -11,6 +11,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -102,7 +103,7 @@ public class PersonaDAO implements CrudPersona {
     }
 
     @Override
-    public int agregarPer(Persona per) {
+    public void agregarPer(Persona per) {
         String sql = "insert into persona(usuario, clave, foto, cedula, nombre, apellido, fechaNacimiento, tipo, grado, categoria, sexo, peso)values(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
@@ -120,9 +121,11 @@ public class PersonaDAO implements CrudPersona {
             ps.setString(11, per.getSexo());
             ps.setString(12, per.getPeso());
             ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());            
         }
-        return r;
 
     }
 

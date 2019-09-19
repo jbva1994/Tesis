@@ -44,9 +44,7 @@
                     <a>Usuario:</a><br>
                     <a>${applicationScope.usuario}</a>
                     <div class="dropdown-divider"></div>
-                    <form accion="Controlador" method="POST">
-                        <a name="accion" value="Salir" href="login.jsp" class="dropdown-item">Salir</a>
-                    </form>
+                    <a name="accion" value="Salir" href="ControladorSession" class="dropdown-item">Salir</a>
                 </div>
             </div>
 
