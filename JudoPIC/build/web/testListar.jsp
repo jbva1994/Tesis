@@ -51,13 +51,19 @@
             </div>
 
         </nav>
-                    
-        <div class="navbar container mb-3">
-            <form class="form-inline" action="ControladorPer?menu=Test" method="POST">
-                <input type="text" name="txtBuscar" class="form-control">
-                <input type="submit" name="accion" value="Buscar"  class="btn btn-outline-success">
-            </form>
-        </div> 
+
+        <div class="col-sm-14">
+            <div class="card">
+                <div class="card-body">
+                    <div class="navbar container mb-2">
+                        <form class="form-inline" action="ControladorPer?menu=Test" method="POST">
+                            <input type="text" name="txtBuscar" class="form-control" placeholder="Cedula">
+                            <input type="submit" name="accion" value="Buscar"  class="btn btn-outline-success">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="d-flex " style="overflow-x:auto;"> 
             <div class="col-sm-24">
@@ -66,11 +72,10 @@
                         <table class="table table-sm table-bordered">
                             <thead>
                                 <tr align="center" valign="middle">
-                                    <th colspan="19">TEST PEDAGOGICO JUDO DE PICHINCHA</th>
+                                    <th colspan="18">TEST PEDAGOGICO JUDO DE PICHINCHA</th>
                                 </tr>
                                 <tr align="center" valign="middle">                                   
-                                    <th rowspan="2">ID</th>
-                                    <th rowspan="2">ID PERSONA</th>
+                                    <th rowspan="2">CEDULA</th>
                                     <th rowspan="2">FECHA</th>
                                     <th colspan="3">RESISTENCIA A LA FUERZA</th>
                                     <th colspan="3">FUERZA EXPLOSIVA</th>
@@ -101,8 +106,7 @@
 
                                 <c:forEach var="test" items="${tests}">
                                     <tr>
-                                        <td>${test.getIdtest()}</td>
-                                        <td>${test.getIdpersona()}</td>
+                                        <td>${test.getCedula()}</td>
                                         <td>${test.getFecha()}</td>
                                         <td>${test.getBarras()}</td>
                                         <td>${test.getParalelas()}</td>

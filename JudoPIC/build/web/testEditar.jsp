@@ -62,19 +62,12 @@
                             <legend>Datos de Test</legend>
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
-                                    <label for="validationTooltip01">ID Persona</label>
-                                    <input type="text" value="${testedit.getIdpersona()}" name="txtIdpersona" class="form-control" id="validationTooltip01" required>                                   
+                                    <label for="validationTooltip01">Cedula</label>
+                                    <input type="text" value="${testedit.getCedula()}" name="txtCedula" class="form-control" id="validationTooltip01" required>                                   
                                     <div class="invalid-feedback">
                                         Por favor rellene este campo!
                                     </div>
-                                </div>
-                                <div class="col-md-3 mb-2">
-                                    <label for="validationTooltip02">Fecha</label>
-                                    <input type="text" value="${testedit.getFecha()}" placeholder="Ejemplo: YYYY-MM-DD" name="txtFecha" class="form-control" id="validationTooltip02" required>
-                                    <div class="invalid-feedback">
-                                        Por favor rellene este campo!
-                                    </div>
-                                </div>               
+                                </div>         
                             </div>
                             <legend>Resistencia a la Fuerza:</legend>
                             <div class="form-row">

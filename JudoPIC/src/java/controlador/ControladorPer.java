@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import modelo.Persona;
 import modelo.TestPedagogico;
 import modeloDao.PersonaDAO;
 import modeloDao.TestPedagogicoDAO;
+import org.apache.commons.codec.digest.DigestUtils;
 
 @MultipartConfig
 public class ControladorPer extends HttpServlet {
@@ -41,7 +43,11 @@ public class ControladorPer extends HttpServlet {
                     break;
                 case "Agregar":
                     String usuario = request.getParameter("txtUsuario");
-                    String clave = request.getParameter("txtClave");
+                    //String myHash;
+                    Random random = new Random();
+                    random.nextInt(999999);
+                    String clave = DigestUtils.md5Hex(""+random);
+                    //myHash = DigestUtils.md5Hex(""+random);
                     Part part = request.getPart("txtFoto");
                     InputStream foto = part.getInputStream();
                     String cedula = request.getParameter("txtCedula");
@@ -66,13 +72,13 @@ public class ControladorPer extends HttpServlet {
                     per.setSexo(sexo);
                     per.setPeso(peso);
                     pdao.agregarPer(per);
-                    request.setAttribute("Mensaje", "Usuario agregado con exito");
+                    //request.setAttribute("Mensaje", "Usuario agregado con exito");
                     request.getRequestDispatcher("ControladorPer?menu=Persona&accion=Enviar").forward(request, response);
                     break;
                 case "Enviar":
                     String usuarioC = request.getParameter("txtUsuario");
                     per.setUsuario(usuarioC);
-                    pdao.enviarCorreo(per.getUsuario());
+                    pdao.enviarCorreo(per.getUsuario(), per.getClave());
                     request.getRequestDispatcher("personaNueva.jsp").forward(request, response);
                     break;
                 case "Editar":
@@ -83,7 +89,9 @@ public class ControladorPer extends HttpServlet {
                     break;
                 case "Actualizar":
                     String usuarioA = request.getParameter("txtUsuario");
-                    String claveA = request.getParameter("txtClave");
+                    Random randomA = new Random();
+                    randomA.nextInt(999999);
+                    String claveA = DigestUtils.md5Hex(""+randomA);
                     Part partA = request.getPart("txtFoto");
                     InputStream fotoA = partA.getInputStream();
                     String cedulaA = request.getParameter("txtCedula");
@@ -109,13 +117,13 @@ public class ControladorPer extends HttpServlet {
                     per.setPeso(pesoA);
                     per.setId(idp);
                     pdao.actualizarPer(per);
-                    request.setAttribute("Mensaje", "Usuario actualizado con exito");
+                    //request.setAttribute("Mensaje", "Usuario actualizado con exito");
                     request.getRequestDispatcher("ControladorPer?menu=Persona&accion=EnviarActualizado").forward(request, response);
                     break;
                 case "EnviarActualizado":
                     String usuarioCA = request.getParameter("txtUsuario");
                     per.setUsuario(usuarioCA);
-                    pdao.enviarCorreo(per.getUsuario());
+                    pdao.enviarCorreo(per.getUsuario(), per.getClave());
                     request.getRequestDispatcher("ControladorPer?menu=Persona&accion=Listar").forward(request, response);
                     break;
                 case "Eliminar":
@@ -145,8 +153,9 @@ public class ControladorPer extends HttpServlet {
                     request.getRequestDispatcher("testListar.jsp").forward(request, response);
                     break;
                 case "Agregar":
-                    int idpersona = Integer.parseInt(request.getParameter("txtIdpersona"));
-                    String fecha = request.getParameter("txtFecha");
+                    String cedula = request.getParameter("txtCedula");
+                    Persona pe=tdao.buscarId(cedula);
+                    int idpersona = pe.getId();
                     int barras = Integer.parseInt(request.getParameter("txtBarras"));
                     int paralelas = Integer.parseInt(request.getParameter("txtParalelas"));
                     int cabos = Integer.parseInt(request.getParameter("txtCabos"));
@@ -164,7 +173,6 @@ public class ControladorPer extends HttpServlet {
                     double pique100 = Double.parseDouble(request.getParameter("txtPique100"));
 
                     test.setIdpersona(idpersona);
-                    test.setFecha(fecha);
                     test.setBarras(barras);
                     test.setParalelas(paralelas);
                     test.setCabos(cabos);
@@ -190,8 +198,9 @@ public class ControladorPer extends HttpServlet {
                     request.getRequestDispatcher("testEditar.jsp").forward(request, response);
                     break;
                 case "Actualizar":
-                    int idpersonaA = Integer.parseInt(request.getParameter("txtIdpersona"));
-                    String fechaA = request.getParameter("txtFecha");
+                    String cedulaA = request.getParameter("txtCedula");
+                    Persona peA=tdao.buscarId(cedulaA);
+                    int idpersonaA = peA.getId();
                     int barrasA = Integer.parseInt(request.getParameter("txtBarras"));
                     int paralelasA = Integer.parseInt(request.getParameter("txtParalelas"));
                     int cabosA = Integer.parseInt(request.getParameter("txtCabos"));
@@ -208,7 +217,6 @@ public class ControladorPer extends HttpServlet {
                     double pique50A = Double.parseDouble(request.getParameter("txtPique50"));
                     double pique100A = Double.parseDouble(request.getParameter("txtPique100"));
                     test.setIdpersona(idpersonaA);
-                    test.setFecha(fechaA);
                     test.setBarras(barrasA);
                     test.setParalelas(paralelasA);
                     test.setCabos(cabosA);

@@ -1,7 +1,9 @@
 package modelo;
 
-public class TestPedagogico {
 
+public class TestPedagogico extends Persona {
+
+    
     int idtest;
     int idpersona;
     String fecha;
@@ -20,13 +22,33 @@ public class TestPedagogico {
     double pique30;
     double pique50;
     double pique100;
-    
-    public TestPedagogico(){
-        
+
+    public TestPedagogico() {
+
     }
 
-    public TestPedagogico(int idpersona, String fecha, int barras, int paralelas, int cabos, int pecho, int abdomen, int cunclilla, double prom, double halon, double sentadilla, int ushikomi, int nagekomi60, int nagekomi30, double pique30, double pique50, double pique100) {
+    public TestPedagogico(int idpersona, int barras, int paralelas, int cabos, int pecho, int abdomen, int cunclilla, double prom, double halon, double sentadilla, int ushikomi, int nagekomi60, int nagekomi30, double pique30, double pique50, double pique100) {
         this.idpersona = idpersona;
+        this.barras = barras;
+        this.paralelas = paralelas;
+        this.cabos = cabos;
+        this.pecho = pecho;
+        this.abdomen = abdomen;
+        this.cunclilla = cunclilla;
+        this.prom = prom;
+        this.halon = halon;
+        this.sentadilla = sentadilla;
+        this.ushikomi = ushikomi;
+        this.nagekomi60 = nagekomi60;
+        this.nagekomi30 = nagekomi30;
+        this.pique30 = pique30;
+        this.pique50 = pique50;
+        this.pique100 = pique100;
+    }
+    
+    public TestPedagogico(int idpersona, String cedula,String fecha, int barras, int paralelas, int cabos, int pecho, int abdomen, int cunclilla, double prom, double halon, double sentadilla, int ushikomi, int nagekomi60, int nagekomi30, double pique30, double pique50, double pique100) {
+        this.idpersona = idpersona;
+        this.cedula = cedula;
         this.fecha = fecha;
         this.barras = barras;
         this.paralelas = paralelas;
@@ -45,7 +67,14 @@ public class TestPedagogico {
         this.pique100 = pique100;
     }
 
- 
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+    
 
     public int getIdtest() {
         return idtest;
@@ -191,5 +220,4 @@ public class TestPedagogico {
         this.pique100 = pique100;
     }
 
- 
 }
