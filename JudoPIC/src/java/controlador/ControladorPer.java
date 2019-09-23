@@ -3,6 +3,7 @@ package controlador;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.Date;
 import java.util.List;
 import java.util.Random;
@@ -91,6 +92,7 @@ public class ControladorPer extends HttpServlet {
                     per.setPeso(peso);
                     pdao.agregarPer(per);
                     request.getRequestDispatcher("ControladorPer?menu=Persona&accion=Enviar").forward(request, response);
+                    
                     break;
                 case "Enviar":
                     String usuarioC = request.getParameter("txtUsuario");

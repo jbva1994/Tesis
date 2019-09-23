@@ -23,6 +23,7 @@ public class Controlador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out=response.getWriter();
         String accion=request.getParameter("accion");
         if(accion.equals("Ingresar")){
             String usuario=request.getParameter("txtUser");
@@ -41,10 +42,21 @@ public class Controlador extends HttpServlet {
                 
                 request.getRequestDispatcher("ControladorPer?menu=Principal").forward(request, response);           
             }else{
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                out.println("<script src='js/sweetalert2.js'></script>");
+                out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+                out.println("<script>");
+                out.println("$(document).ready(function(){");
+                out.println("swal ( 'Usuario y/o Contraseña incorrectos' ,  ' ' ,  'error' );");
+                out.println("});");
+                out.println("</script>");
+                
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+               rd.include(request, response);
+                
             } 
         }else{
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+            
+            request.getRequestDispatcher("login.jsp").forward(request, response);
          }
     }
 

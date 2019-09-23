@@ -18,9 +18,10 @@
         <!--Custom styles-->
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head>
+    
     <body>
         <div class="container">
-            <form action="Controlador" method="POST">
+            <form action="${pageContext.request.contextPath}/Controlador" method="POST">
                 <div class="d-flex justify-content-center h-100">
                     <div class="card">
                         <div class="card-header">

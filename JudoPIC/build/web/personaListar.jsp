@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Listar Persona</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark"> 
@@ -92,7 +92,7 @@
                                 <c:forEach var="per" items="${personas}">
                                     <tr>
                                         <td>${per.getUsuario()}</td>
-                                        <td><img src="ControlalorImg?id=${per.getId()}" width="150" heigth="130"></td>
+                                        <td><img src="ControladorImg?id=${per.getId()}" width="150" heigth="130"></td>
                                         <td>${per.getCedula()}</td>
                                         <td>${per.getNombre()}</td>
                                         <td>${per.getApellido()}</td>

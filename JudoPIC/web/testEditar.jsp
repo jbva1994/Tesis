@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Editar Test Pedagógico</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark"> 
@@ -193,6 +193,7 @@
 
                             
                             <input type="submit" name="accion" value="Actualizar" class="btn btn-success">
+                             <a type="submit" href="principal.jsp" class="btn btn-warning">Cancelar</a>
                         </form>
 
                     </div>                         
