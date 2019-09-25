@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <title>Nueva Persona</title>
+        <title>Nuevo Usuario</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark"> 
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagogico</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagógico</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Test&accion=Listar">Listar Tests</a>
                             <div class="dropdown-divider"></div>
@@ -36,7 +36,7 @@
                 </ul>
             </div>
             <div class="dropdown nav-item justify-content-end">      
-                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesion</a>
+                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesión</a>
                 <div class="dropdown-menu text-center">
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="validationTooltip02">Clave:</label>
-                                    <input type="password" value="${peredit.getClave()}" name="txtClave" class="form-control" id="validationTooltip02" readonly>
+                                    <input type="password" value="JudoPic2019" name="txtClave" class="form-control" id="validationTooltip02" readonly>
                                     <div class="invalid-feedback">
                                         Por favor rellene este campo!
                                     </div>
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 mb-5">
-                                    <label for="validationTooltip04">Cedula:</label>
+                                    <label for="validationTooltip04">Cédula:</label>
                                     <input type="text" value="${peredit.getCedula()}" name="txtCedula" class="form-control" id="validationTooltip04" pattern="^[0-9]{10}$"  oninvalid="setCustomValidity('Por favor ingresa una cedula valida')" required>
                                     <div class="invalid-feedback">
                                         Por favor rellene este campo!
@@ -145,7 +145,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 mb-5">
-                                    <label for="validationTooltip10">Categoria:</label>
+                                    <label for="validationTooltip10">Categoría:</label>
                                     <select type="text" value="${peredit.getCategoria()}" name="txtCategoria"  class="form-control" id="validationTooltip10" pattern="Juvenil|Senior"  oninvalid="setCustomValidity('Por favor seleccione un campo valido')" >
                                         <option></option>
                                         <option>Juvenil</option>
@@ -193,8 +193,10 @@
                             </div>
 
                                         <input type="submit" name="accion" value="Agregar" class="btn btn-primary">
+                                        
                                         <a type="submit" href="principal.jsp" class="btn btn-warning">Cancelar</a>
-                            
+     
+
                         </form>
                     </div>
                 </div>

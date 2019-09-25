@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.Persona;
 import modeloDao.LoginDAO;
+import modeloDao.PersonaDAO;
 
 
 public class Controlador extends HttpServlet {
     LoginDAO dao=new LoginDAO();
     Persona per=new Persona();
+    PersonaDAO pdao=new PersonaDAO();
     int r;
     
    
@@ -27,7 +29,8 @@ public class Controlador extends HttpServlet {
         String accion=request.getParameter("accion");
         if(accion.equals("Ingresar")){
             String usuario=request.getParameter("txtUser");
-            String clave=request.getParameter("txtClave");
+            String claveE=request.getParameter("txtClave");
+            String clave = pdao.Encriptar(claveE);
             per.setUsuario(usuario);
             per.setClave(clave);
             dao.validar(per);
@@ -51,12 +54,11 @@ public class Controlador extends HttpServlet {
                 out.println("</script>");
                 
                 RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-               rd.include(request, response);
-                
+                rd.include(request, response);
+                //request.getRequestDispatcher("login.jsp").forward(request, response);
             } 
         }else{
-            
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
          }
     }
 

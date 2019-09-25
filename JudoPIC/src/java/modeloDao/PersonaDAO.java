@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -20,6 +22,9 @@ import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.URLDataSource;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -34,6 +39,7 @@ import javax.mail.internet.MimeMultipart;
 import static javax.servlet.SessionTrackingMode.URL;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Persona;
+import org.apache.commons.codec.binary.Base64;
 
 public class PersonaDAO implements CrudPersona {
 
@@ -124,13 +130,48 @@ public class PersonaDAO implements CrudPersona {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
         }
 
     }
 
     @Override
     public int actualizarPer(Persona per) {
+        String sql = "update persona set usuario=?, clave=?, cedula=?, nombre=?, apellido=?, fechaNacimiento=?, tipo=?, grado=?, categoria=?, sexo=?, peso=? where idpersona=?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, per.getUsuario());
+            ps.setString(2, per.getClave());
+            //ps.setBlob(3, per.getFoto());
+            ps.setString(3, per.getCedula());
+            ps.setString(4, per.getNombre());
+            ps.setString(5, per.getApellido());
+            ps.setString(6, per.getFechaNacimiento());
+            ps.setString(7, per.getTipo());
+            ps.setString(8, per.getGrado());
+            ps.setString(9, per.getCategoria());
+            ps.setString(10, per.getSexo());
+            ps.setString(11, per.getPeso());
+            ps.setInt(12, per.getId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return r;
+    }
+
+    @Override
+    public void eliminarPer(int id) {
+        String sql = "delete from persona where idpersona=" + id;
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public int actualizarPerImg(Persona per) {
         String sql = "update persona set usuario=?, clave=?, foto=?, cedula=?, nombre=?, apellido=?, fechaNacimiento=?, tipo=? ,grado=?, categoria=?, sexo=?, peso=? where idpersona=?";
         try {
             con = cn.getConnection();
@@ -152,17 +193,6 @@ public class PersonaDAO implements CrudPersona {
         } catch (Exception e) {
         }
         return r;
-    }
-
-    @Override
-    public void eliminarPer(int id) {
-        String sql = "delete from persona where idpersona=" + id;
-        try {
-            con = cn.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.executeUpdate();
-        } catch (Exception e) {
-        }
     }
 
     @Override
@@ -271,7 +301,7 @@ public class PersonaDAO implements CrudPersona {
         }
         return enviado;
     }
- 
+
     public void listarImg(int id, HttpServletResponse response) {
         String sql = "select * from persona where idpersona=" + id;
         InputStream inputStream = null;
@@ -295,5 +325,53 @@ public class PersonaDAO implements CrudPersona {
             }
         } catch (Exception e) {
         }
+    }
+
+    public static String Encriptar(String texto) {
+
+        String secretKey = "judopic2019"; //llave para encriptar datos
+        String base64EncryptedString = "";
+        try {
+
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+
+            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+            Cipher cipher = Cipher.getInstance("DESede");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+
+            byte[] plainTextBytes = texto.getBytes("utf-8");
+            byte[] buf = cipher.doFinal(plainTextBytes);
+            byte[] base64Bytes = Base64.encodeBase64(buf);
+            base64EncryptedString = new String(base64Bytes);
+
+        } catch (Exception ex) {
+        }
+        return base64EncryptedString;
+    }
+
+    public static String Desencriptar(String textoEncriptado) throws Exception {
+
+        String secretKey = "judopic2019"; //llave para encriptar datos
+        String base64EncryptedString = "";
+
+        try {
+            byte[] message = Base64.decodeBase64(textoEncriptado.getBytes("utf-8"));
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+
+            Cipher decipher = Cipher.getInstance("DESede");
+            decipher.init(Cipher.DECRYPT_MODE, key);
+
+            byte[] plainText = decipher.doFinal(message);
+
+            base64EncryptedString = new String(plainText, "UTF-8");
+
+        } catch (Exception ex) {
+        }
+        return base64EncryptedString;
     }
 }

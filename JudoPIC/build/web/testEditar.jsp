@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <title>Editar Test Pedagógico</title>
+        <title>Editar Test</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark"> 
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagogico</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagógico</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Test&accion=Listar">Listar Tests</a>
                             <div class="dropdown-divider"></div>
@@ -36,7 +36,7 @@
                 </ul>
             </div>
             <div class="dropdown nav-item justify-content-end">      
-                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesion</a>
+                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesión</a>
                 <div class="dropdown-menu text-center">
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
@@ -55,12 +55,12 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <legend align="top">FORMULARIO DE INGRESO DE TEST PEGAGOGICOS</legend>
+                        <legend align="top">FORMULARIO DE INGRESO DE TEST PEGAGÓGICOS</legend>
                         <form class="was-validated" action="ControladorPer?menu=Test" method="POST">
                             <legend>Datos de Test</legend>
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
-                                    <label for="validationTooltip01">Cedula</label>
+                                    <label for="validationTooltip01">Cédula</label>
                                     <input type="text" value="${testedit.getCedula()}" name="txtCedula" class="form-control" id="validationTooltip01" required>                                   
                                     <div class="invalid-feedback">
                                         Por favor rellene este campo!
@@ -116,7 +116,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <legend>Fuerza Maxima</legend>
+                            <legend>Fuerza Máxima</legend>
                             <div class="form-row">
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip09">Prom</label>
@@ -166,7 +166,7 @@
                                 </div>
                             </div>
 
-                            <legend>Velocidad de Traslacion</legend>
+                            <legend>Velocidad de Traslación</legend>
                             <div class="form-row">
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip15">Pique 30m</label>

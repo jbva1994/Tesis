@@ -4,8 +4,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <title>Listar Persona</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+        <title>Listar Usuarios</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark"> 
@@ -26,7 +27,7 @@
                         </div>
                     </div>
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagogico</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagógico</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Test&accion=Listar">Listar Tests</a>
                             <div class="dropdown-divider"></div>
@@ -36,7 +37,7 @@
                 </ul>
             </div>
             <div class="dropdown nav-item justify-content-end">      
-                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesion</a>
+                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesión</a>
                 <div class="dropdown-menu text-center">
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
@@ -49,7 +50,7 @@
             </div>
 
         </nav>
-        <div class="col-sm-14">
+                    <div class="col-sm-14">
             <div class="card">
                 <div class="card-body">
                     <div class="navbar container mb-2">
@@ -70,18 +71,18 @@
                         <table class="table table-sm table-bordered ">
                             <thead>
                                 <tr align="center" valign="middle">
-                                    <th colspan="12">LISTA DE ENTRENADORES Y DEPORTISTAS DE LA ASOCIACION DE JUDO PICHINCHA</th>
+                                    <th colspan="12">LISTA DE ENTRENADORES Y DEPORTISTAS DE LA ASOCIACIÓN DE JUDO PICHINCHA</th>
                                 </tr>
                                 <tr align="center" valign="middle">
                                     <th>USUARIO</th>
                                     <th>FOTO</th>
-                                    <th>CEDULA</th>
+                                    <th>CÉDULA</th>
                                     <th>NOMBRE</th>
                                     <th>APELLIDO</th>
                                     <th>FECHA DE NACIMIENTO</th>
                                     <th>TIPO</th>
                                     <th>GRADO</th>
-                                    <th>CATEGORIA</th>
+                                    <th>CATEGORÍA</th>
                                     <th>SEXO</th>
                                     <th>PESO</th>                                   
                                     <th>OPCIONES</th>
@@ -103,8 +104,9 @@
                                         <td>${per.getSexo()}</td>
                                         <td>${per.getPeso()}</td>
                                         <td>
-                                            <a class="btn btn-warning" href="ControladorPer?menu=Persona&accion=Editar&id=${per.getId()}">Editar  </a>
-                                            <a class="btn btn-danger" href="ControladorPer?menu=Persona&accion=Eliminar&id=${per.getId()}">Eliminar><i class="glyphicon glyphicon-trash"></i></a>
+                                            <a class="btn btn-warning" href="ControladorPer?menu=Persona&accion=Editar&id=${per.getId()}"><span class="glyphicon glyphicon-pencil">Editar</span></a>
+                                            <a class="btn btn-danger" href="ControladorPer?menu=Persona&accion=Eliminar&id=${per.getId()}"><span class="glyphicon glyphicon-trash">Eliminar</span></a>
+
                                         </td>
                                     </tr>
                                 </c:forEach>

@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagogico</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagógico</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Test&accion=Listar">Listar Tests</a>
                             <div class="dropdown-divider"></div>
@@ -34,7 +34,7 @@
                 </ul>
             </div>
             <div class="dropdown nav-item justify-content-end">      
-                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesion</a>
+                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesión</a>
                 <div class="dropdown-menu text-center">
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
@@ -51,7 +51,7 @@
         </nav>
 
         <div class="form-group text-center">
-            <h2 class="text-center">Bienvenido al Sistema de Test Pedagogico Judo Pichincha</h2>
+            <h2 class="text-center">Bienvenido al Sistema de Test Pedagógico Judo Pichincha</h2>
             <a><img src="img/judoka2.jpg" height="455" width="1344" /></a><br> 
         </div>
 

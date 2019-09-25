@@ -5,7 +5,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <title>Listar Test Pedagógico</title>
+       
+   
+    <title>Listar Test</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark"> 
@@ -26,7 +28,7 @@
                         </div>
                     </div>
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagogico</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagógico</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Test&accion=Listar">Listar Tests</a>
                             <div class="dropdown-divider"></div>
@@ -36,7 +38,7 @@
                 </ul>
             </div>
             <div class="dropdown nav-item justify-content-end">      
-                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesion</a>
+                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesión</a>
                 <div class="dropdown-menu text-center">
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
@@ -44,7 +46,7 @@
                     <a>Usuario:</a><br>
                     <a>${applicationScope.usuario}</a>
                     <div class="dropdown-divider"></div>
-                   <a name="accion" value="Salir" href="ControladorSession" class="dropdown-item">Salir</a>
+                    <a name="accion" value="Salir" href="ControladorSession" class="dropdown-item">Salir</a>
                 </div>
             </div>
 
@@ -70,16 +72,16 @@
                         <table class="table table-sm table-bordered">
                             <thead>
                                 <tr align="center" valign="middle">
-                                    <th colspan="18">TEST PEDAGOGICO JUDO DE PICHINCHA</th>
+                                    <th colspan="18">TEST PEDAGÓGICO JUDO DE PICHINCHA</th>
                                 </tr>
                                 <tr align="center" valign="middle">                                   
-                                    <th rowspan="2">CEDULA</th>
+                                    <th rowspan="2">CÉDULA</th>
                                     <th rowspan="2">FECHA</th>
                                     <th colspan="3">RESISTENCIA A LA FUERZA</th>
                                     <th colspan="3">FUERZA EXPLOSIVA</th>
-                                    <th colspan="3">FUERZA MAXIMA</th>
+                                    <th colspan="3">FUERZA MÁXIMA</th>
                                     <th colspan="3">RESISTENCIA A LA RAPIDEZ ESPECIAL</th>                               
-                                    <th colspan="3">VELOCIDAD DE TRASLACION</th>
+                                    <th colspan="3">VELOCIDAD DE TRASLACIÓN</th>
                                     <th rowspan="2">OPCIONES</th>
                                 </tr>
                                 <tr align="center" valign="middle">                                    
@@ -122,8 +124,8 @@
                                         <td>${test.getPique50()}</td>
                                         <td>${test.getPique100()}</td>
                                         <td>
-                                            <a class="btn btn-warning" href="ControladorPer?menu=Test&accion=Editar&id=${test.getIdtest()}">Editar</a>
-                                            <a class="btn btn-danger" href="ControladorPer?menu=Test&accion=Eliminar&id=${test.getIdtest()}">Eliminar</a>
+                                            <a class="btn btn-warning" href="ControladorPer?menu=Test&accion=Editar&id=${test.getIdtest()}"><i class="iconic" data-glyph="pencil">Editar</i></a>
+                                            <a class="btn btn-danger" href="ControladorPer?menu=Test&accion=Eliminar&id=${test.getIdtest()}"><i class="glyphicon glyphicon-trash">Eliminar</i></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
