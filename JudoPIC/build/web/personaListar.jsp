@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <title>Listar Usuarios</title>
     </head>
     <body>
@@ -15,11 +15,11 @@
                 <ul class="navbar-nav">
 
                     <div class="nav-item " >
-                        <a style="margin-left: 10px; border: none ;color: white" href="principal.jsp" class="nav-link">Home</a>                      
+                        <a style="margin-left: 10px; border: none ;color: white" href="principal.jsp" class="nav-link"><i class="fas fa-layer-group "></i> Home</a>                      
                     </div>
 
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Usuarios</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class=" fas fa-users "></i> Usuarios</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Persona&accion=Listar">Listar Usuarios</a>
                             <div class="dropdown-divider"></div>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagógico</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="far fa-id-badge "></i> Test Pedagógico</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Test&accion=Listar">Listar Tests</a>
                             <div class="dropdown-divider"></div>
@@ -37,7 +37,7 @@
                 </ul>
             </div>
             <div class="dropdown nav-item justify-content-end">      
-                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesión</a>
+                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-sign-in-alt "></i> Cerrar Sesión</a>
                 <div class="dropdown-menu text-center">
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
@@ -104,8 +104,8 @@
                                         <td>${per.getSexo()}</td>
                                         <td>${per.getPeso()}</td>
                                         <td>
-                                            <a class="btn btn-warning" href="ControladorPer?menu=Persona&accion=Editar&id=${per.getId()}"><span class="glyphicon glyphicon-pencil">Editar</span></a>
-                                            <a class="btn btn-danger" href="ControladorPer?menu=Persona&accion=Eliminar&id=${per.getId()}"><span class="glyphicon glyphicon-trash">Eliminar</span></a>
+                                            <a title="Editar" href="ControladorPer?menu=Persona&accion=Editar&id=${per.getId()}"><i class="fas fa-user-edit fa-2x text-primary"></i></a>
+                                            <a title="Eliminar" href="ControladorPer?menu=Persona&accion=Eliminar&id=${per.getId()}"><i class="fas fa-user-times fa-2x red-text text-danger"></i></a>
 
                                         </td>
                                     </tr>

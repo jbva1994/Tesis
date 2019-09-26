@@ -5,6 +5,7 @@ import interfaces.CrudTestPedagogico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.el.ELResolver;
@@ -54,7 +55,10 @@ public class TestPedagogicoDAO implements CrudTestPedagogico{
                 
                 
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return lista;}
 
@@ -89,7 +93,10 @@ public class TestPedagogicoDAO implements CrudTestPedagogico{
                 
                 
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return test; }
 
@@ -118,7 +125,10 @@ public class TestPedagogicoDAO implements CrudTestPedagogico{
             ps.setDouble(16, test.getPique100());            
         
             ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return r;}
 
@@ -146,7 +156,10 @@ public class TestPedagogicoDAO implements CrudTestPedagogico{
             ps.setDouble(16, test.getPique100());
             ps.setInt(17, test.getIdtest());
             ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return r;}
 
@@ -157,8 +170,12 @@ public class TestPedagogicoDAO implements CrudTestPedagogico{
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
             ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
-        }}
+            System.out.println(e.getMessage());
+        }
+    }
 
     @Override
     public List buscarTest(String texto) {
@@ -193,7 +210,10 @@ public class TestPedagogicoDAO implements CrudTestPedagogico{
                 lista.add(test);
                 
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return lista;}
     
@@ -207,7 +227,10 @@ public class TestPedagogicoDAO implements CrudTestPedagogico{
             while (rs.next()) {                                
                 test.setId(rs.getInt(1));                
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return test;
     }

@@ -5,6 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <title>Nuevo Usuario</title>
     </head>
     <body>
@@ -14,11 +15,11 @@
                 <ul class="navbar-nav">
 
                     <div class="nav-item " >
-                        <a style="margin-left: 10px; border: none ;color: white" href="principal.jsp" class="nav-link">Home</a>                      
+                        <a style="margin-left: 10px; border: none ;color: white" href="principal.jsp" class="nav-link"><i class="fas fa-layer-group "></i> Home</a>                      
                     </div>
 
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Usuarios</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class=" fas fa-users "></i> Usuarios</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Persona&accion=Listar">Listar Usuarios</a>
                             <div class="dropdown-divider"></div>
@@ -26,7 +27,7 @@
                         </div>
                     </div>
                     <div class="dropdown nav-item">      
-                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Test Pedagógico</a>
+                        <a style="margin-left: 10px; border: none ;color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="far fa-id-badge "></i> Test Pedagógico</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item" href="ControladorPer?menu=Test&accion=Listar">Listar Tests</a>
                             <div class="dropdown-divider"></div>
@@ -36,7 +37,7 @@
                 </ul>
             </div>
             <div class="dropdown nav-item justify-content-end">      
-                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Cerrar Sesión</a>
+                <a style="color: white" href="" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-sign-in-alt "></i> Cerrar Sesión</a>
                 <div class="dropdown-menu text-center">
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
@@ -63,15 +64,12 @@
                                     <label for="validationTooltip01">Usuario:</label>
                                     <input type="email" value="${peredit.getUsuario()}" name="txtUsuario" placeholder="aaaaaa@gmail.com"  class="form-control" id="validationTooltip01" required>                                   
                                     <div class="invalid-feedback">
-                                        Por favor rellene este campo!
+                                        Ingrese un correo electrónico
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="validationTooltip02">Clave:</label>
                                     <input type="password" value="JudoPic2019" name="txtClave" class="form-control" id="validationTooltip02" readonly>
-                                    <div class="invalid-feedback">
-                                        Por favor rellene este campo!
-                                    </div>
                                 </div>               
                             </div>
                             <h5>Datos de Usuario</h5>
@@ -85,7 +83,7 @@
                                 </div>
                                 <div class="col-md-2 mb-5">
                                     <label for="validationTooltip04">Cédula:</label>
-                                    <input type="text" value="${peredit.getCedula()}" name="txtCedula" class="form-control" id="validationTooltip04" pattern="^[0-9]{10}$"  oninvalid="setCustomValidity('Por favor ingresa una cedula valida')" required>
+                                    <input type="text" value="${peredit.getCedula()}" name="txtCedula" class="form-control" id="validationTooltip04" pattern="^[0-9]{10}$"  oninvalid="setCustomValidity('Por favor ingresa una cédula válida')" required>
                                     <div class="invalid-feedback">
                                         Por favor rellene este campo!
                                     </div>

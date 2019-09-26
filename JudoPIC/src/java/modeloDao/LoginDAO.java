@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import config.Conexion;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Persona;
@@ -19,7 +20,7 @@ public class LoginDAO implements Validar {
     @Override
     public int validar(Persona per) {
         int r = 0;
-        String sql = "Select * from persona where usuario=? and clave=?";
+        String sql = "Select * from persona where usuario=? and clave=? and tipo = 'Entrenador'";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -37,16 +38,20 @@ public class LoginDAO implements Validar {
                 return 0;
             }
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
-            return 0;
+            System.out.println(e.getMessage());
         }
+        return 0;
+
     }
 
     public List usuario() {
         String sql = "Select * from persona where usuario=?";
         List<Persona> lista = new ArrayList<>();
         try {
-             con = cn.getConnection();
+            con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -54,9 +59,12 @@ public class LoginDAO implements Validar {
                 per.setUsuario(rs.getString("usuario"));
                 lista.add(per);
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
-           
+            System.out.println(e.getMessage());
         }
+
         return lista;
     }
 

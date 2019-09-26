@@ -75,7 +75,10 @@ public class PersonaDAO implements CrudPersona {
                 lista.add(per);
 
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return lista;
     }
@@ -103,7 +106,10 @@ public class PersonaDAO implements CrudPersona {
                 per.setPeso(rs.getString(13));
 
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return per;
     }
@@ -155,7 +161,10 @@ public class PersonaDAO implements CrudPersona {
             ps.setString(11, per.getPeso());
             ps.setInt(12, per.getId());
             ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return r;
     }
@@ -167,7 +176,10 @@ public class PersonaDAO implements CrudPersona {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -190,7 +202,10 @@ public class PersonaDAO implements CrudPersona {
             ps.setString(12, per.getPeso());
             ps.setInt(13, per.getId());
             ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return r;
     }
@@ -225,7 +240,10 @@ public class PersonaDAO implements CrudPersona {
                 per.setPeso(rs.getString("peso"));
                 lista.add(per);
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return lista;
     }
@@ -323,7 +341,10 @@ public class PersonaDAO implements CrudPersona {
             while ((i = bufferedinputStream.read()) != -1) {
                 bufferedoutputStream.write(i);
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
