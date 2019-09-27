@@ -54,15 +54,28 @@
         </nav>
 
         <div class="col-sm-14">
+            
             <div class="card">
+                
                 <div class="card-body">
-                    <div class="navbar container mb-2">
-                        <form class="form-inline" action="ControladorPer?menu=Test" method="POST">
-                            <input type="text" name="txtBuscar" class="form-control" placeholder="Cedula">
-                            <input type="submit" name="accion" value="Buscar" class="btn btn-outline-success">
-                        </form>
+                    <div class="alert alert-warning alert-dismissible">
+                        <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        Ingrese la Cédula del Deportista previamente registrado para listar los Test.
                     </div>
+                    <div class="navbar container mb-2">
+                        
+                        <form class="form-inline" action="ControladorPer?menu=Test" method="POST">
+                              
+                            <input type="text" name="txtBuscar" class="form-control" placeholder="Cédula">
+                            
+                            <input type="submit" name="accion" value="Buscar" class="btn btn-outline-success">
+                            
+                        </form>
+                        
+                    </div>
+                    
                 </div>
+                
             </div>
         </div>
 

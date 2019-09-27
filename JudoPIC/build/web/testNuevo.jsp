@@ -61,8 +61,12 @@
                             <legend>Datos de Test</legend>
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
+                                    <div class="alert alert-warning alert-dismissible">
+                                        <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>Tenga en cuenta que la Cédula debe pertenecer a un usuario previamente registrado.</strong>
+                                    </div>
                                     <label for="validationTooltip01">Cédula</label>
-                                    <input type="text" value="" name="txtCedula" class="form-control" id="validationTooltip01" pattern="^[0-9]{10}$"  oninvalid="setCustomValidity('Por favor ingresa una cédula válida')" required>                                   
+                                    <input type="text" value="" name="txtCedula" class="form-control" id="validationTooltip01" pattern="^[0-9]{10}$"  oninvalid="setCustomValidity('Ingrese una cédula valida')" required>                                   
                                     <div class="invalid-feedback">
                                         Rellene este campo!
                                     </div>
@@ -121,23 +125,23 @@
                             <div class="form-row">
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip09">Prom</label>
-                                    <input type="text" value="0.0" name="txtProm" class="form-control" id="validationTooltip09" >
+                                    <input type="text" value="0.0" name="txtProm" class="form-control" id="validationTooltip09" pattern="^([0-9]|[1-9][0-9]|1[0-5][0-9]|160)[.]([0-9]|[1-9][0-9])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0.0 - 160.00')" >
                                     <div class="invalid-feedback">
-                                        Bien!
+                                        Ingrese un número decimal entre 0-160!
                                     </div>
                                 </div>                 
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip10">Halon</label>
-                                    <input type="text" value="0.0" name="txtHalon" class="form-control" id="validationTooltip10" >
+                                    <input type="text" value="0.0" name="txtHalon" class="form-control" id="validationTooltip10" pattern="^([0-9]|[1-9][0-9]|1[0-5][0-9]|160)[.]([0-9]|[1-9][0-9])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0.0 - 160.00')">
                                     <div class="invalid-feedback">
-                                        Bien!
+                                        Ingrese un número decimal entre 0-160!
                                     </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip11">Sentadilla</label>
-                                    <input type="text" value="0.0" name="txtSentadilla"  class="form-control" id="validationTooltip11" >
+                                    <input type="text" value="0.0" name="txtSentadilla"  class="form-control" id="validationTooltip11" pattern="^([0-9]|[1-9][0-9]|1[0-5][0-9]|160)[.]([0-9]|[1-9][0-9])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0.0 - 160.00')">
                                     <div class="invalid-feedback">
-                                        Bien!
+                                        Ingrese un número decimal entre 0-160!
                                     </div>
                                 </div>
                             </div>
@@ -146,21 +150,21 @@
                             <div class="form-row">
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip12">Ushikomi</label>
-                                    <input type="text" value="0" name="txtUshikomi" class="form-control" id="validationTooltip12" pattern="^([0-9]|[1-9][0-9]|[100])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0-100')">
+                                    <input type="text" value="0" name="txtUshikomi" class="form-control" id="validationTooltip12" pattern="^([0-9]|[1-9][0-9]|100)$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0-100')">
                                     <div class="invalid-feedback">
                                         Ingrese un número entre 0-100!
                                     </div>
                                 </div>                 
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip13">Nagekomi 60s</label>
-                                    <input type="text" value="0" name="txtNagekomi60" class="form-control" id="validationTooltip13" pattern="^([0-9]|[1-6][0-9]|[70])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0-70')">
+                                    <input type="text" value="0" name="txtNagekomi60" class="form-control" id="validationTooltip13" pattern="^([0-9]|[1-6][0-9]|70)$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0-70')">
                                     <div class="invalid-feedback">
                                         Ingrese un número entre 0-70!
                                     </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip14">Nagekomi 30s</label>
-                                    <input type="text" value="0" name="txtNagekomi30"  class="form-control" id="validationTooltip14" pattern="^([0-9]|[1-3][0-9]|[40])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0-40')">
+                                    <input type="text" value="0" name="txtNagekomi30"  class="form-control" id="validationTooltip14" pattern="^([0-9]|[1-3][0-9]|40)$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0-40')">
                                     <div class="invalid-feedback">
                                         Ingrese un número entre 0-40!
                                     </div>
@@ -171,23 +175,23 @@
                             <div class="form-row">
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip15">Pique 30m</label>
-                                    <input type="text" value="0.0" name="txtPique30" class="form-control" id="validationTooltip15" >
+                                    <input type="text" value="0.0" name="txtPique30" class="form-control" id="validationTooltip15" pattern="^([0-9]|[1-2][0-9]|30)[.]([0-9]|[1-9][0-9])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0.0 - 30.0')" >
                                     <div class="invalid-feedback">
-                                        Bien!
+                                        Ingrese un número decimal entre 0-30!
                                     </div>
                                 </div>                 
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip16">Pique 50m</label>
-                                    <input type="text" value="0.0" name="txtPique50" class="form-control" id="validationTooltip16" >
+                                    <input type="text" value="0.0" name="txtPique50" class="form-control" id="validationTooltip16" pattern="^([0-9]|[1-3][0-9]|40)[.]([0-9]|[1-9][0-9])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0.0 - 40.0')">
                                     <div class="invalid-feedback">
-                                        Bien!
+                                        Ingrese un número decimal entre 0-40!
                                     </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip17">Pique 100m</label>
-                                    <input type="text" value="0.0" name="txtPique100"  class="form-control" id="validationTooltip17" >
+                                    <input type="text" value="0.0" name="txtPique100"  class="form-control" id="validationTooltip17" pattern="^([0-9]|[1-5][0-9]|60)[.]([0-9]|[1-9][0-9])$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0.0 - 60.0')">
                                     <div class="invalid-feedback">
-                                        Bien!
+                                        Ingrese un número decimal entre 0-60!
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +200,11 @@
                              <a type="submit" href="principal.jsp" class="btn btn-warning">Cancelar</a>
                         </form>
 
-                    </div>                         
+                    </div> 
+                    <div class="alert alert-warning alert-dismissible">
+                        <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Atención!</strong> Verificar que todos los campos se encuentren en verde. Si ingresó mal un campo por favor <strong>Actualice</strong> la página.
+                    </div>
                 </div>
             </div> 
         </div>

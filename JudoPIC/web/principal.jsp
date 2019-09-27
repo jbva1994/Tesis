@@ -1,10 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+        <style>
+            /* Make the image fully responsive */
+            .carousel-inner img {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
         <title>Home</title>
     </head>
     <body>
@@ -43,17 +53,47 @@
                     <a>Usuario:</a><br>
                     <a>${applicationScope.usuario}</a>
                     <div class="dropdown-divider"></div>
-                  
+
                     <a name="accion" value="Salir" href="ControladorSession" class="dropdown-item">Salir</a>
-                    
+
                 </div>
             </div>
 
         </nav>
 
-        <div class="form-group text-center">
-            <h2 class="text-center">Bienvenido al Sistema de Test Pedagógico Judo Pichincha</h2>
-            <a><img src="img/judoka2.jpg" height="455" width="1344" /></a><br> 
+
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="img/judoka2.jpg" alt="Bienvenido al Sistema de Test Pedagógico Judo Pichincha" width="1100" height="500">
+                    <div class="carousel-caption">
+                        <h2>Bienvenido al Sistema de Test Pedagógico Judo Pichincha</h2>
+                    </div>   
+                </div>
+                <div class="carousel-item">
+                    <img src="img/princ1.jpg" alt="Bienvenido al Sistema de Test Pedagógico Judo Pichincha" width="1100" height="500">
+                    <div class="carousel-caption">
+                        <h3>Bienvenido al Sistema de Test Pedagógico Judo Pichincha</h3>
+                    </div>   
+                </div>
+                <div class="carousel-item">
+                    <img src="img/princ3.jpg" alt="Bienvenido al Sistema de Test Pedagógico Judo Pichincha" width="1100" height="500">
+                    <div class="carousel-caption">
+                        <h3>Bienvenido al Sistema de Test Pedagógico Judo Pichincha</h3>
+                    </div>   
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
         </div>
 
 

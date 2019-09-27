@@ -53,6 +53,10 @@
                     <div class="col-sm-14">
             <div class="card">
                 <div class="card-body">
+                    <div class="alert alert-warning alert-dismissible">
+                        <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        Ingrese cualquier registro de un Deportista o Entrenador para filtrar los datos en la tabla.
+                    </div>
                     <div class="navbar container mb-2">
                         <form class="form-inline" action="ControladorPer?menu=Persona" method="POST">
                             <input type="text" name="txtBuscar" class="form-control" placeholder="Cualquier campo de la tabla" >

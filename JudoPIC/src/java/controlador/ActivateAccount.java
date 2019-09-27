@@ -69,7 +69,7 @@ public class ActivateAccount extends HttpServlet {
                     if(i==1){
                         response.sendRedirect("activacion.jsp");
                     }else{
-                        response.sendRedirect("principal.jsp");
+                        response.sendRedirect("login.jsp");
                     }
             }
             
