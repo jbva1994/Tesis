@@ -30,13 +30,14 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
     ImageView foto;
     TextView cedula, nombre, apellido, fecha, tipo, grado, categoria, sexo, peso;
     Button btnListar;
+    Button cerrarSesion;
     RequestQueue requestQueue;
     JsonObjectRequest jsonObjectRequest;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.perfil);
+        setContentView(R.layout.activity_perfil);
 
         foto=(ImageView)findViewById(R.id.foto);
         usuario=findViewById(R.id.usuario);
@@ -50,6 +51,15 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
         sexo=findViewById(R.id.sexo);
         peso=findViewById(R.id.peso);
         btnListar=(Button)findViewById(R.id.btnListar);
+        cerrarSesion=(Button)findViewById(R.id.btnCerrar);
+
+        cerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Login.cambiarEstadoButon(Perfil.this,false);
+                finish();
+            }
+        });
 
 
         btnListar.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +72,7 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
 
     private void cargarWebService() {
 
-        String url= "http://192.168.1.16/judopic/perfil_deportista.php?usuario="+usuario.getText().toString();
+        String url= "http://192.168.1.18/judopic/perfil_persona.php?usuario="+usuario.getText().toString();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
@@ -97,15 +107,15 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                cedula.setText("Cedula :" + miUsuario.getCedula());
-                nombre.setText("Nombre :" + miUsuario.getNombre());
-                apellido.setText("Apellido :" + miUsuario.getApellido());
-                fecha.setText("Fecha de Nacimiento :" + miUsuario.getFecha());
-                tipo.setText("Tipo :" + miUsuario.getTipo());
-                grado.setText("Grado :" + miUsuario.getGrado());
-                categoria.setText("Categoria :" + miUsuario.getCategoria());
-                sexo.setText("Sexo :" + miUsuario.getSexo());
-                peso.setText("Peso :" + miUsuario.getPeso());
+                cedula.setText("Cédula:" + miUsuario.getCedula());
+                nombre.setText("Nombre:" + miUsuario.getNombre());
+                apellido.setText("Apellido:" + miUsuario.getApellido());
+                fecha.setText("Fecha de Nacimiento:" + miUsuario.getFecha());
+                tipo.setText("Tipo:" + miUsuario.getTipo());
+                grado.setText("Grado:" + miUsuario.getGrado());
+                categoria.setText("Categoría:" + miUsuario.getCategoria());
+                sexo.setText("Sexo:" + miUsuario.getSexo());
+                peso.setText("Peso:" + miUsuario.getPeso());
 
                 if (miUsuario.getFoto() != null) {
                     foto.setImageBitmap(miUsuario.getFoto());

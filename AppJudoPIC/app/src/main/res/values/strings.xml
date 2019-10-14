@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AppJudoPIC</string>
+    <string name="actioncerrarsesion">Cerrar Sesión</string>
+    <string name="actionperfil">PERFIL</string>
+    <string name="actionestadisticas">ESTADISTICAS</string>
+    <string name="actionentrenamiento">ENTRENAMIENTO</string>
 </resources>

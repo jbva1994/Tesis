@@ -1,11 +1,14 @@
 package ec.pic.judo.appjudopic;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,21 +26,49 @@ import java.util.Map;
 
 public class Login extends AppCompatActivity {
 
-    EditText edtUsuario, edtPassword;
+    EditText usuario, clave;
     Button btnLogin;
+    RadioButton sesion;
+    boolean isActivateRadioButton;
+
+    public static final String STRING_PREFERENCES = "preferences.JudoPIC";
+    public static final String PREFERENCE_ESTADO_BUTTON_SESION = "estado.button.sesion";
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-        edtUsuario=findViewById(R.id.edtUsuario);
-        edtPassword=findViewById(R.id.edtPassword);
+        setContentView(R.layout.activity_login);
+
+        if(obtenerEstadoButton()){
+            Intent intent = new Intent(getApplicationContext(), Perfil.class);
+            startActivity(intent);
+            finish();
+        }
+
+        usuario=findViewById(R.id.edtUsuario);
+        clave =findViewById(R.id.edtPassword);
         btnLogin= (Button)findViewById(R.id.btnLogin);
+
+        sesion=(RadioButton)findViewById(R.id.rbsesion);
+        isActivateRadioButton = sesion.isChecked(); //DESACTIVADO
+
+        sesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isActivateRadioButton){
+                    sesion.setChecked(false);
+                }
+                isActivateRadioButton = sesion.isChecked();
+
+            }
+        });
+
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validarUsuario( "http://192.168.1.16/judopic/validar_usuario.php");
+                validarUsuario( "http://192.168.1.18/judopic/validar_usuario.php");
             }
         });
     }
@@ -46,9 +77,12 @@ public class Login extends AppCompatActivity {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
                 if(!response.isEmpty()){
                     Intent intent = new Intent(getApplicationContext(), Perfil.class);
+                    guardarEstadoButton();
                     startActivity(intent);
+                    finish();
                     //startActivity(new Intent(Login.this, Principal.class));
                 }else{
                     Toast.makeText(Login.this, "Usuario o Contraseña incorrectos", Toast.LENGTH_SHORT).show();
@@ -65,8 +99,8 @@ public class Login extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros=new HashMap<String, String>();
-                parametros.put("usuario", edtUsuario.getText().toString());
-                parametros.put("clave", edtPassword.getText().toString());
+                parametros.put("usuario", usuario.getText().toString());
+                parametros.put("clave", clave.getText().toString());
 
                 return parametros;
             }
@@ -74,6 +108,22 @@ public class Login extends AppCompatActivity {
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
+    }
+
+    public void guardarEstadoButton(){
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES,MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION,sesion.isChecked()).apply();
+    }
+
+    public boolean obtenerEstadoButton(){
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES,MODE_PRIVATE);
+        return preferences.getBoolean(PREFERENCE_ESTADO_BUTTON_SESION,false);//Si es que nunca se ha guardado nada en esta key pues retornara false
+    }
+
+    public static void cambiarEstadoButon(Context c, boolean b){
+        SharedPreferences preferences = c.getSharedPreferences(STRING_PREFERENCES,c.MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION,b).apply();
     }
 
 
