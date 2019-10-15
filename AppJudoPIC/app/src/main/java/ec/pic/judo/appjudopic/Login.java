@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if(obtenerEstadoButton()){
-            Intent intent = new Intent(getApplicationContext(), Perfil.class);
+            Intent intent = new Intent(getApplicationContext(), Principal.class);
             startActivity(intent);
             finish();
         }
@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validarUsuario( "http://192.168.1.18/judopic/validar_usuario.php");
+                validarUsuario( "http://10.119.253.83/judopic/validar_usuario.php");
             }
         });
     }
@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
             public void onResponse(String response) {
 
                 if(!response.isEmpty()){
-                    Intent intent = new Intent(getApplicationContext(), Perfil.class);
+                    Intent intent = new Intent(getApplicationContext(), Principal.class);
                     guardarEstadoButton();
                     startActivity(intent);
                     finish();

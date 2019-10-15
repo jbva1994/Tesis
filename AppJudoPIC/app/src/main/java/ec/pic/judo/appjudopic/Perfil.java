@@ -30,7 +30,6 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
     ImageView foto;
     TextView cedula, nombre, apellido, fecha, tipo, grado, categoria, sexo, peso;
     Button btnListar;
-    Button cerrarSesion;
     RequestQueue requestQueue;
     JsonObjectRequest jsonObjectRequest;
 
@@ -51,15 +50,6 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
         sexo=findViewById(R.id.sexo);
         peso=findViewById(R.id.peso);
         btnListar=(Button)findViewById(R.id.btnListar);
-        cerrarSesion=(Button)findViewById(R.id.btnCerrar);
-
-        cerrarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Login.cambiarEstadoButon(Perfil.this,false);
-                finish();
-            }
-        });
 
 
         btnListar.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +62,7 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
 
     private void cargarWebService() {
 
-        String url= "http://192.168.1.18/judopic/perfil_persona.php?usuario="+usuario.getText().toString();
+        String url= "http://10.119.253.83/judopic/perfil_persona.php?usuario="+usuario.getText().toString();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }

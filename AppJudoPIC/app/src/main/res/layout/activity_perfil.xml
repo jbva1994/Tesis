@@ -38,12 +38,6 @@
                 android:layout_height="wrap_content"
                 android:text="Listar" />
 
-            <Button
-                android:id="@+id/btnCerrar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cerrar Sesión" />
-
             <ImageView
                 android:id="@+id/foto"
                 android:layout_width="200dip"

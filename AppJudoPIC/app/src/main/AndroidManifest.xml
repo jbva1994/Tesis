@@ -21,11 +21,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Perfil"
+            android:name=".Principal"
             android:parentActivityName=".Login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ec.pic.judo.appjudopic.Login" />
+                android:value=".Login" />
+        </activity>
+        <activity
+            android:name=".Perfil"
+            android:parentActivityName=".Principal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Principal" />
+        </activity>
+        <activity android:name=".Estadisticas"
+            android:parentActivityName=".Principal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Principal" />
+        </activity>
+        <activity android:name=".Entrenamiento"
+            android:parentActivityName=".Principal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Principal" />
         </activity>
     </application>
 
