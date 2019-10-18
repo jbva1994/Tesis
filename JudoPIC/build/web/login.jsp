@@ -7,7 +7,6 @@
 <html>
     <head>
         <title>Login</title>
-        <!--Made with love by Mutiullah Samim -->
 
         <!--Bootsrap 4 CDN-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -43,9 +42,9 @@
 
                             <div class="form-group">
                                 <input type="submit" value="Ingresar"  name="accion" class="btn float-right login_btn">
+                                <a href='restablecer.jsp'>¿Olvidó su contraseña?</a>
 
                             </div>
-
 
                         </div>
 

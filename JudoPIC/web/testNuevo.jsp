@@ -42,7 +42,6 @@
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
                     <a>Judo Pichincha</a>
-                    <a>Usuario:</a><br>
                     <a>${applicationScope.usuario}</a>
                     <div class="dropdown-divider"></div>
                     <a name="accion" value="Salir" href="ControladorSession" class="dropdown-item">Salir</a>
@@ -150,9 +149,9 @@
                             <div class="form-row">
                                 <div class="col-md-2 mb-3">
                                     <label for="validationTooltip12">Ushikomi</label>
-                                    <input type="text" value="0" name="txtUshikomi" class="form-control" id="validationTooltip12" pattern="^([0-9]|[1-9][0-9]|100)$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0-100')">
+                                    <input type="text" value="0" name="txtUshikomi" class="form-control" id="validationTooltip12" pattern="^([0-9]|[1-9][0-9]|1[0-9][0-9]|200)$"  oninvalid="setCustomValidity('Ingrese un numero valido entre 0-200')">
                                     <div class="invalid-feedback">
-                                        Ingrese un número entre 0-100!
+                                        Ingrese un número entre 0-200!
                                     </div>
                                 </div>                 
                                 <div class="col-md-2 mb-3">

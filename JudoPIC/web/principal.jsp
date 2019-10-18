@@ -50,7 +50,6 @@
 
                     <a><img src="img/user.png" height="60" width="60"/></a><br>                
                     <a>Judo Pichincha</a>
-                    <a>Usuario:</a><br>
                     <a>${applicationScope.usuario}</a>
                     <div class="dropdown-divider"></div>
 

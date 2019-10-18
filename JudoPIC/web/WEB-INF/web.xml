@@ -24,6 +24,10 @@
         <servlet-name>ControladorImg</servlet-name>
         <url-pattern>/ControladorImg</url-pattern>
     </servlet-mapping>
+     <servlet>
+        <servlet-name>ControladorRestablecer</servlet-name>
+        <servlet-class>controlador.ControladorRestablecer</servlet-class>
+    </servlet>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>

@@ -168,6 +168,33 @@ public class PersonaDAO implements CrudPersona {
         }
         return r;
     }
+    
+    public int restablecer(Persona per) {
+        r=0;
+        String sql = "update persona set clave=? where usuario=?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, per.getClave());
+            ps.setString(2, per.getUsuario());
+            ps.executeUpdate();
+            while (rs.next()) {
+                r = r + 1;
+                per.setUsuario(rs.getString("usuario"));
+                per.setClave(rs.getString("clave"));
+            }
+            if (r == 1) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return r;
+    }
 
     @Override
     public void eliminarPer(int id) {
@@ -287,7 +314,8 @@ public class PersonaDAO implements CrudPersona {
 
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(txtUsuario));
             message.setSubject(asunto);
-            message.setText("Link de Activación: " + "http://localhost:8084/ActivateAccount?key1=" + txtUsuario + "&key2=" + txtClave);
+            message.setText("Por favor acceder al link para activar la Cuenta y reestablecer la contraseña. \n"
+                    + "Link de Activación: " + "http://localhost:8084/ActivateAccount?key1=" + txtUsuario + "&key2=" + txtClave);
 
             /*
             Multipart multipart = new MimeMultipart("related");

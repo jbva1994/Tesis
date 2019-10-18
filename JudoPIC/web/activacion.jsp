@@ -1,19 +1,30 @@
-<%-- 
-    Document   : activacion
-    Created on : 04/09/2019, 18:55:16
-    Author     : JoseN
---%>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ActivaciÃ³n cuenta</title>
+        <title>Activación</title>
+        <!--Made with love by Mutiullah Samim -->
+
+        <!--Bootsrap 4 CDN-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <!--Fontawesome CDN-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+        <!--Custom styles-->
+        <link rel="stylesheet" type="text/css" href="css/estilosR.css">
+        <style>
+            h1 { color: #f0f0f0; }
+        </style>
     </head>
     <body>
         <form action="ActivateAccount" method="POST">
-        <h1>Cuenta Activada</h1>    
+        <h1>Cuenta Activada</h1> 
+        <a href='restablecer.jsp'>Restablecer contraseña</a>
         </form>
     </body>
 </html>

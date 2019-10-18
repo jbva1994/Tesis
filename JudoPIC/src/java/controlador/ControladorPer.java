@@ -3,11 +3,7 @@ package controlador;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import java.sql.Date;
 import java.util.List;
-import java.util.Random;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +15,6 @@ import modelo.Persona;
 import modelo.TestPedagogico;
 import modeloDao.PersonaDAO;
 import modeloDao.TestPedagogicoDAO;
-import org.apache.commons.codec.digest.DigestUtils;
 
 @MultipartConfig
 public class ControladorPer extends HttpServlet {
