@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Principal extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class Principal extends AppCompatActivity {
 
         if (id == R.id.action_cerrarsesion) {
             Login.cambiarEstadoButon(Principal.this,false);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -35,6 +37,7 @@ public class Principal extends AppCompatActivity {
 
     public void perfil (View view){
         Intent perfil = new Intent(this, Perfil.class);
+
         startActivity(perfil);
     }
 

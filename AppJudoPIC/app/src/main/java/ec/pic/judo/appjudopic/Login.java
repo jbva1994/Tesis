@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,12 +22,21 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
+
 public class Login extends AppCompatActivity {
 
-    EditText usuario, clave;
+    EditText usuario;
+    EditText clave;
+
     Button btnLogin;
     RadioButton sesion;
     boolean isActivateRadioButton;
@@ -46,7 +56,12 @@ public class Login extends AppCompatActivity {
         }
 
         usuario=findViewById(R.id.edtUsuario);
+        usuario.getText().toString();
         clave =findViewById(R.id.edtPassword);
+
+        //texto= clave.toString();
+        //encriptar=Login.Encriptar(texto);
+
         btnLogin= (Button)findViewById(R.id.btnLogin);
 
         sesion=(RadioButton)findViewById(R.id.rbsesion);
@@ -68,10 +83,16 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validarUsuario( "http://10.119.253.83/judopic/validar_usuario.php");
+                validarUsuario( "http://192.168.1.32/judopic/validar_usuario.php");
+
+                SharedPreferences prefer=getSharedPreferences("datos",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=prefer.edit();
+                editor.putString("mail", usuario.getText().toString());
+                editor.commit();
             }
         });
     }
+
 
     public void validarUsuario(String URL){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -99,8 +120,8 @@ public class Login extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros=new HashMap<String, String>();
-                parametros.put("usuario", usuario.getText().toString());
-                parametros.put("clave", clave.getText().toString());
+                    parametros.put("usuario", usuario.getText().toString());
+                    parametros.put("clave",clave.getText().toString());
 
                 return parametros;
             }
@@ -126,5 +147,36 @@ public class Login extends AppCompatActivity {
         preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION,b).apply();
     }
 
+    public static String Encriptar1(String texto) {
 
+        String secretKey = "judopic2019"; //llave para encriptar datos
+        String base64EncryptedString = "";
+        try {
+
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+
+            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+            Cipher cipher = Cipher.getInstance("DESede");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+
+            byte[] plainTextBytes = texto.getBytes(String.valueOf(Base64.DEFAULT));
+            byte[] buf = cipher.doFinal(plainTextBytes);
+            byte[] base64Bytes = Base64.encode(buf,Base64.DEFAULT);
+            base64EncryptedString = new String(base64Bytes);
+
+        } catch (Exception ex) {
+        }
+        return base64EncryptedString;
+    }
+    public static String encriptar(String s) {
+        //return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
+        //byte[] encodeValue = Base64.encode(s.getBytes(), Base64.URL_SAFE);
+        //return encodeValue.toString();
+        //return Base64.encodeToString(s.getBytes("utf-8"),Base64.DEFAULT);
+        //String BasicBase64format = Base64.getEncoder().encodeToString(s.getBytes());
+        String BasicBase64format = Base64.encodeToString(s.getBytes(), Base64.URL_SAFE);
+        return BasicBase64format;
+    }
 }

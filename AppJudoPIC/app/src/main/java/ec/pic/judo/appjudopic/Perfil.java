@@ -1,5 +1,7 @@
 package ec.pic.judo.appjudopic;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,17 +54,31 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
         btnListar=(Button)findViewById(R.id.btnListar);
 
 
+
+
         btnListar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cargarWebService();
+                listarWebService();
             }
         });
+        cargarWebService();
     }
+
 
     private void cargarWebService() {
 
-        String url= "http://10.119.253.83/judopic/perfil_persona.php?usuario="+usuario.getText().toString();
+        SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
+        String user=prefer.getString("mail","");
+
+        String url= "http://192.168.1.32/judopic/perfil_deportista.php?usuario="+user;
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
+        VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void listarWebService() {
+
+        String url= "http://192.168.1.32/judopic/perfil_deportista.php?usuario="+usuario.getText().toString();
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
