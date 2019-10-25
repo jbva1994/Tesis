@@ -99,7 +99,7 @@ public class ControladorPer extends HttpServlet {
                     String usuarioC = request.getParameter("txtUsuario");
                     per.setUsuario(usuarioC);
                     pdao.enviarCorreo(per.getUsuario(), per.getClave());
-                    request.getRequestDispatcher("personaNueva.jsp").forward(request, response);
+                    request.getRequestDispatcher("ControladorPer?menu=Persona&accion=Listar").forward(request, response);
                     break;
                 case "Editar":
                     idp = Integer.parseInt(request.getParameter("id"));

@@ -69,7 +69,7 @@
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
                                     <label for="validationTooltip01">Usuario:</label>
-                                    <input type="email" value="${peredit.getUsuario()}" name="txtUsuario" placeholder="aaaaaa@gmail.com"  class="form-control" id="validationTooltip01" required>                                   
+                                    <input type="email" value="${peredit.getUsuario()}" name="txtUsuario" placeholder="####@gmail.com"  class="form-control" id="validationTooltip01" required>                                   
                                     <div class="invalid-feedback">
                                         Rellene este campo!
                                     </div>

@@ -30,7 +30,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="email" value="${peredit.getUsuario()}" class="form-control" name="txtUsuario" placeholder="Ingrese el usuario">
+                                <input type="email" value="${peredit.getUsuario()}" class="form-control" name="txtUsuario" placeholder="Ingrese el correo electrónico">
 
                             </div>
                             <div class="input-group form-group">

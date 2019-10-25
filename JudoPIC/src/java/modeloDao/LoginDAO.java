@@ -20,7 +20,7 @@ public class LoginDAO implements Validar {
     @Override
     public int validar(Persona per) {
         int r = 0;
-        String sql = "Select * from persona where usuario=? and clave=? and tipo = 'Entrenador'";
+        String sql = "Select * from persona where usuario=? and clave=? and tipo = 'Entrenador' and active = '1'";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
