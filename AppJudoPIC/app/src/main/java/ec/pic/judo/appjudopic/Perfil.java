@@ -1,12 +1,12 @@
 package ec.pic.judo.appjudopic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -28,12 +27,32 @@ import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
 public class Perfil extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
-    EditText usuario;
     ImageView foto;
     TextView cedula, nombre, apellido, fecha, tipo, grado, categoria, sexo, peso;
-    Button btnListar;
-    RequestQueue requestQueue;
     JsonObjectRequest jsonObjectRequest;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_salir) {
+            finish();
+        }
+
+        if (id == R.id.action_acerca){
+            Intent acerca = new Intent(this, Acerca.class);
+            startActivity(acerca);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
@@ -41,7 +60,6 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
         setContentView(R.layout.activity_perfil);
 
         foto=(ImageView)findViewById(R.id.foto);
-        usuario=findViewById(R.id.usuario);
         cedula=findViewById(R.id.cedula);
         nombre=findViewById(R.id.nombre);
         apellido=findViewById(R.id.apellido);
@@ -51,17 +69,7 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
         categoria=findViewById(R.id.categoria);
         sexo=findViewById(R.id.sexo);
         peso=findViewById(R.id.peso);
-        btnListar=(Button)findViewById(R.id.btnListar);
 
-
-
-
-        btnListar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listarWebService();
-            }
-        });
         cargarWebService();
     }
 
@@ -71,17 +79,11 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://192.168.1.32/judopic/perfil_deportista.php?usuario="+user;
+        String url= "http://10.119.30.205/judopic/perfil_deportista.php?usuario="+user;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
 
-    private void listarWebService() {
-
-        String url= "http://192.168.1.32/judopic/perfil_deportista.php?usuario="+usuario.getText().toString();
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
-        VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
-    }
 
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -113,15 +115,15 @@ public class Perfil extends AppCompatActivity implements Response.Listener<JSONO
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                cedula.setText("Cédula:" + miUsuario.getCedula());
-                nombre.setText("Nombre:" + miUsuario.getNombre());
-                apellido.setText("Apellido:" + miUsuario.getApellido());
-                fecha.setText("Fecha de Nacimiento:" + miUsuario.getFecha());
-                tipo.setText("Tipo:" + miUsuario.getTipo());
-                grado.setText("Grado:" + miUsuario.getGrado());
-                categoria.setText("Categoría:" + miUsuario.getCategoria());
-                sexo.setText("Sexo:" + miUsuario.getSexo());
-                peso.setText("Peso:" + miUsuario.getPeso());
+                cedula.setText("Cédula: " + miUsuario.getCedula());
+                nombre.setText("Nombre: " + miUsuario.getNombre());
+                apellido.setText("Apellido: " + miUsuario.getApellido());
+                fecha.setText("Fecha de Nacimiento: " + miUsuario.getFecha());
+                tipo.setText("Tipo: " + miUsuario.getTipo());
+                grado.setText("Grado: " + miUsuario.getGrado());
+                categoria.setText("Categoría: " + miUsuario.getCategoria());
+                sexo.setText("Sexo: " + miUsuario.getSexo());
+                peso.setText("Peso: " + miUsuario.getPeso());
 
                 if (miUsuario.getFoto() != null) {
                     foto.setImageBitmap(miUsuario.getFoto());

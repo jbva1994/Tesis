@@ -27,9 +27,13 @@ public class Principal extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_cerrarsesion) {
-            Login.cambiarEstadoButon(Principal.this,false);
+        if (id == R.id.action_salir) {
             finish();
+        }
+
+        if (id == R.id.action_acerca){
+            Intent acerca = new Intent(this, Acerca.class);
+            startActivity(acerca);
         }
 
         return super.onOptionsItemSelected(item);

@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/screen"
+        android:src="@drawable/loginapp"
         android:scaleType="centerCrop"
         />
 
@@ -59,16 +59,6 @@
                 android:textColor="#fff"
                 android:inputType="textPassword"
                 android:hint="Password"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#fff"
-                android:gravity="end"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="30dp"
-                android:text="¿Olvidaste tu contraseña?"/>
 
             <RadioButton
                 android:id="@+id/rbsesion"

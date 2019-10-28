@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Perfil">
+    tools:context=".Entrenamiento">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/login"
+        android:src="@drawable/entre"
         android:scaleType="centerCrop"
         />
 
@@ -29,127 +29,145 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
-                android:text="PERFIL DEL DEPORTISTA"
+                android:text="RESISTENCIA A LA FUERZA"
                 android:typeface="serif"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/foto"
-                android:layout_width="180dip"
-                android:layout_height="180dip"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/img_base" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TRABAJO AL 70%"
+                android:background="#BDBDBD"
+                android:typeface="serif"
+                android:textSize="15sp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/cedula"
+                android:id="@+id/barras70"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#85AAAAAA"
-                android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
-                android:hint="Cédula"
+                android:background="#FFF9C4"
+                android:hint="Barras"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:typeface="sans" />
 
             <TextView
-                android:id="@+id/nombre"
+                android:id="@+id/paralelas70"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:drawableLeft="@android:drawable/ic_menu_sort_alphabetically"
-                android:hint="Nombre"
+                android:background="#FFF9C4"
+                android:hint="Paralelas"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:typeface="sans" />
 
             <TextView
-                android:id="@+id/apellido"
+                android:id="@+id/cabos70"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_sort_alphabetically"
-                android:background="#85AAAAAA"
+                android:background="#FFF9C4"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:typeface="sans"
-                android:hint="Apellido" />
+                android:hint="Cabos" />
 
             <TextView
-                android:id="@+id/fecha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_my_calendar"
-                android:background="#85AAAAAA"
+                android:text="TRABAJO AL 80%"
+                android:background="#BDBDBD"
+                android:layout_marginTop="20dp"
+                android:typeface="serif"
+                android:textSize="15sp"
                 android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Fecha de Nacimiento" />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tipo"
+                android:id="@+id/barras80"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
-                android:background="#85AAAAAA"
+                android:layout_marginTop="20dp"
+                android:background="#FFEE58"
+                android:hint="Barras"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Tipo" />
+                android:typeface="sans" />
 
             <TextView
-                android:id="@+id/grado"
+                android:id="@+id/paralelas80"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_info_details"
-                android:background="#85AAAAAA"
+                android:background="#FFEE58"
+                android:hint="Paralelas"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Grado" />
+                android:typeface="sans" />
 
             <TextView
-                android:id="@+id/categoria"
+                android:id="@+id/cabos80"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_info_details"
-                android:background="#85AAAAAA"
+                android:background="#FFEE58"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:typeface="sans"
-                android:hint="Categoría" />
+                android:hint="Cabos" />
 
             <TextView
-                android:id="@+id/sexo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_edit"
-                android:background="#85AAAAAA"
+                android:text="TRABAJO AL 90%"
+                android:background="#BDBDBD"
+                android:layout_marginTop="20dp"
+                android:typeface="serif"
+                android:textSize="15sp"
                 android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Sexo" />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/peso"
+                android:id="@+id/barras90"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_info_details"
-                android:background="#85AAAAAA"
+                android:layout_marginTop="20dp"
+                android:background="#FBC02D"
+                android:hint="Barras"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/paralelas90"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FBC02D"
+                android:hint="Paralelas"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/cabos90"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FBC02D"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:typeface="sans"
-                android:hint="Peso" />
+                android:hint="Cabos" />
 
         </LinearLayout>
 

@@ -1,121 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
     tools:context=".Principal"
     tools:showIn="@layout/activity_principal">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/imageButtonEstadisticas"
-            android:layout_width="379dp"
-            android:layout_height="133dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/actionestadisticas"
-            android:onClick="estadisticas"
-            android:scaleType="fitXY"
-            android:src="@mipmap/judoka6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            tools:srcCompat="@mipmap/judoka6" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/imageButtonEntrenamiento"
-            android:layout_width="379dp"
-            android:layout_height="133dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/actionentrenamiento"
-            android:onClick="entrenamiento"
-            android:scaleType="fitXY"
-            android:src="@mipmap/princ3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/twentrenemiento"
-            tools:srcCompat="@mipmap/princ3" />
+                        <Button
+                            android:id="@+id/textView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="80dp"
+                            android:layout_marginLeft="80dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="80dp"
+                            android:layout_marginRight="80dp"
+                            android:background="@drawable/btn_fondo_color"
+                            android:text="@string/actionperfil"
+                            android:onClick="perfil"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:typeface="serif" />
+                        <ImageButton
+                            android:id="@+id/imageButtonPerfil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="115dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@android:color/transparent"
+                            android:contentDescription="@string/actionperfil"
+                            android:onClick="perfil"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/princ1"
+                            tools:srcCompat="@drawable/princ1"/>
+                        <Button
+                            android:id="@+id/textView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="80dp"
+                            android:layout_marginLeft="80dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="80dp"
+                            android:layout_marginRight="80dp"
+                            android:background="@drawable/btn_fondo_color"
+                            android:text="@string/actionestadisticas"
+                            android:onClick="estadisticas"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:typeface="serif" />
+                        <ImageButton
+                            android:id="@+id/imageButtonEstadisticas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="115dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@android:color/transparent"
+                            android:contentDescription="@string/actionestadisticas"
+                            android:onClick="estadisticas"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/judoka2"
+                            tools:srcCompat="@drawable/judoka2" />
+                        <Button
+                            android:id="@+id/twentrenemiento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="80dp"
+                            android:layout_marginLeft="80dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="80dp"
+                            android:layout_marginRight="80dp"
+                            android:background="@drawable/btn_fondo_color"
+                            android:text="@string/actionentrenamiento"
+                            android:onClick="entrenamiento"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:typeface="serif" />
+                        <ImageButton
+                            android:id="@+id/imageButtonEntrenamiento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="115dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@android:color/transparent"
+                            android:contentDescription="@string/actionentrenamiento"
+                            android:onClick="entrenamiento"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/princ3"
+                            tools:srcCompat="@drawable/princ3" />
+                </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/imageButtonPerfil"
-            android:layout_width="0dp"
-            android:layout_height="133dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/actionperfil"
-            android:onClick="perfil"
-            android:scaleType="fitXY"
-            android:src="@mipmap/princ1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            tools:srcCompat="@mipmap/princ1" />
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/twentrenemiento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginRight="80dp"
-            android:text="@string/actionentrenamiento"
-            android:textColor="#F8BA05"
-            android:textSize="24sp"
-            android:typeface="serif"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButtonEstadisticas" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginRight="80dp"
-            android:text="@string/actionestadisticas"
-            android:textColor="#F8BA05"
-            android:textSize="24sp"
-            android:typeface="serif"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButtonPerfil" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginRight="80dp"
-            android:text="@string/actionperfil"
-            android:textColor="#F8BA05"
-            android:textSize="24sp"
-            android:typeface="serif"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

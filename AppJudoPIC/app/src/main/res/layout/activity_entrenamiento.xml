@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/login"
+        android:src="@drawable/entre"
         android:scaleType="centerCrop"
         />
 
@@ -32,270 +32,38 @@
                 android:text="ENTRENAMIENTO"
                 android:typeface="serif"
                 android:textSize="20sp"
-                android:textColor="#004D40"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
-            <TextView
+            <Button
+                android:id="@+id/btnResistencia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RESISTENCIA A LA FUERZA 70%"
-                android:typeface="serif"
-                android:textSize="15sp"
-                android:textColor="#004D40"
-                android:textStyle="bold" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/btn_fondo_color"
+                android:elevation="5dp"
+                android:onClick="Resistencia"
+                android:text="Resistencia a la Fuerza"
+                android:textColor="#fff"
+                android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/barras70"
+            <Button
+                android:id="@+id/btnFuerza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#85AAAAAA"
-                android:hint="Barras"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/paralelas70"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:hint="Paralelas"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/cabos70"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Cabos" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RESISTENCIA A LA FUERZA 80%"
-                android:layout_marginTop="20dp"
-                android:typeface="serif"
-                android:textSize="15sp"
-                android:textColor="#004D40"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/barras80"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#85AAAAAA"
-                android:hint="Barras"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/paralelas80"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:hint="Paralelas"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/cabos80"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Cabos" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RESISTENCIA A LA FUERZA 90%"
-                android:layout_marginTop="20dp"
-                android:typeface="serif"
-                android:textSize="15sp"
-                android:textColor="#004D40"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/barras90"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#85AAAAAA"
-                android:hint="Barras"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/paralelas90"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:hint="Paralelas"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/cabos90"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Cabos" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="FUERZA MÁXIMA 70%"
-                android:layout_marginTop="20dp"
-                android:typeface="serif"
-                android:textSize="15sp"
-                android:textColor="#004D40"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/prom70"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#85AAAAAA"
-                android:hint="Prom"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/halon70"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:hint="Halon"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/sentadilla70"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Sentadilla" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="FUERZA MÁXIMA 80%"
-                android:layout_marginTop="20dp"
-                android:typeface="serif"
-                android:textSize="15sp"
-                android:textColor="#004D40"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/prom80"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#85AAAAAA"
-                android:hint="Prom"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/halon80"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:hint="Halon"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/sentadilla80"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Sentadilla" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="FUERZA MÁXIMA 90%"
-                android:layout_marginTop="20dp"
-                android:typeface="serif"
-                android:textSize="15sp"
-                android:textColor="#004D40"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/prom90"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#85AAAAAA"
-                android:hint="Prom"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/halon90"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:hint="Halon"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/sentadilla90"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#85AAAAAA"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                android:hint="Sentadilla" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/btn_fondo_color"
+                android:elevation="5dp"
+                android:onClick="Fuerza"
+                android:text="Fuerza Máxima"
+                android:textColor="#fff"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
