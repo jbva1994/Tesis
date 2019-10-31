@@ -7,6 +7,9 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,27 +29,39 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ec.pic.judo.appjudopic.modelo.Test;
+import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
 public class ResistenciaRapidez extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     private LineChart mChart4;
     JsonObjectRequest jsonObjectRequest;
+    TextView estUshikomi, estNagekomi30s, estNagekomi60s, estTotal;
+
+    private Spinner fechas;
+    private AsyncHttpClient cliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resistencia_rapidez);
+
+        cliente= new AsyncHttpClient();
+        fechas=(Spinner)findViewById(R.id.spfecha);
+        llenarSpinner();
 
         mChart4 = findViewById(R.id.chart4);
         mChart4.animate();
@@ -58,7 +73,51 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
         mv.setChartView(mChart4);
         mChart4.setMarker(mv);
 
+        estUshikomi = findViewById(R.id.ushikomi);
+        estNagekomi60s = findViewById(R.id.nagekomi60s);
+        estNagekomi30s = findViewById(R.id.nagekomi30s);
+        estTotal = findViewById(R.id.totalRR);
+
         renderData();
+    }
+
+    private void llenarSpinner(){
+
+        SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
+        String user=prefer.getString("mail","");
+
+        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+
+        cliente.post(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                if(statusCode == 200){
+                    cargarSpinner(new String(responseBody));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void cargarSpinner(String respuesta){
+        ArrayList<Test> lista= new ArrayList<Test>();
+        try{
+            JSONArray jsonArreglo = new JSONArray(respuesta);
+            for(int i=0; i<jsonArreglo.length();i++){
+                Test t= new Test();
+                t.setRegistro(jsonArreglo.getJSONObject(i).getString("registro"));
+                lista.add(t);
+            }
+            ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
+            fechas.setAdapter(a);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -95,7 +154,7 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://10.119.30.205/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
@@ -108,11 +167,18 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
 
 
     public void onResponse(JSONObject response) {
+        TestOptimo OmiTest = new TestOptimo();
         Test miTest = new Test();
+        JSONArray jsonOpt = response.optJSONArray("testoptimo");
+        JSONObject jsonObject1 = null;
         JSONArray json = response.optJSONArray("testpedagogico");
         JSONObject jsonObject = null;
 
         try {
+            jsonObject1 = jsonOpt.getJSONObject(0);
+            OmiTest.setOptUshikomi(jsonObject1.optString("ushikomi"));
+            OmiTest.setOptNagekomi_60s(jsonObject1.optString("nagekomi_60s"));
+            OmiTest.setOptNagekomi_30s(jsonObject1.optString("nagekomi_30s"));
             jsonObject = json.getJSONObject(0);
             miTest.setUshikomi(jsonObject.optString("ushikomi"));
             miTest.setNagekomi_60s(jsonObject.optString("nagekomi_60s"));
@@ -122,15 +188,19 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+        Integer optUshikomi = (Integer.parseInt(OmiTest.getOptUshikomi()));
+        Integer optNagekomi_60s = (Integer.parseInt(OmiTest.getOptNagekomi_60s()));
+        Integer optNagekomi_30s = (Integer.parseInt(OmiTest.getOptNagekomi_30s()));
+
         Integer ushikomi = (Integer.parseInt(miTest.getUshikomi()));
         Integer nagekomi_60s = (Integer.parseInt(miTest.getNagekomi_60s()));
         Integer nagekomi_30s = (Integer.parseInt(miTest.getNagekomi_30s()));
 
 
         ArrayList<Entry> values7 = new ArrayList<Entry>();
-        values7.add(new Entry(1, 45));
-        values7.add(new Entry(2, 60));
-        values7.add(new Entry(3, 30));
+        values7.add(new Entry(1, optUshikomi));
+        values7.add(new Entry(2, optNagekomi_60s));
+        values7.add(new Entry(3, optNagekomi_30s));
 
         ArrayList<Entry> values8 = new ArrayList<Entry>();
         values8.add(new Entry(1, ushikomi));
@@ -192,6 +262,17 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
             LineData data = new LineData(dataSets);
             mChart4.setData(data);
         }
+
+        DecimalFormat formato = new DecimalFormat("#.##");
+        Float promedioUshikomi =(100-(((float)ushikomi*100)/(float)optUshikomi));
+        Float promedioNagekomi60s =(100-((float)(nagekomi_60s*100)/(float)optNagekomi_60s));
+        Float promedioNagekomi30s =(100-((float)(nagekomi_30s*100)/(float)optNagekomi_30s));
+        Float promedioTotal =(100-((((float)ushikomi+(float)nagekomi_60s+(float)nagekomi_30s)*100)/((float)optUshikomi+(float)optNagekomi_60s+(float)nagekomi_30s)));
+
+        estUshikomi.setText("Porcentaje diferencial Ushikomi: " + formato.format(promedioUshikomi) + "%");
+        estNagekomi60s.setText("Porcentaje diferencial Nagekomi 60s: " + formato.format(promedioNagekomi60s) + "%");
+        estNagekomi30s.setText("Porcentaje diferencial Nagekomi 30s: " + formato.format(promedioNagekomi30s) + "%");
+        estTotal.setText("Porcentaje diferencial Total: " + formato.format(promedioTotal) + "%");
 
     }
 }

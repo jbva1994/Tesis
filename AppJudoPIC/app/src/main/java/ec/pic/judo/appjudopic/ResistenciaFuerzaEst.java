@@ -7,6 +7,9 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,27 +28,39 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ec.pic.judo.appjudopic.modelo.Test;
+import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
 public class ResistenciaFuerzaEst extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     private LineChart mChart;
     JsonObjectRequest jsonObjectRequest;
+    TextView estBarras, estParalelas, estCabos, estTotal;
+
+    private Spinner fechas;
+    private AsyncHttpClient cliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resistencia_fuerza_est);
+
+        cliente= new AsyncHttpClient();
+        fechas=(Spinner)findViewById(R.id.spfecha);
+        llenarSpinner();
 
         mChart = findViewById(R.id.chart);
         mChart.animate();
@@ -57,7 +72,51 @@ public class ResistenciaFuerzaEst extends AppCompatActivity implements Response.
         mv.setChartView(mChart);
         mChart.setMarker(mv);
 
+        estBarras = findViewById(R.id.barras);
+        estParalelas = findViewById(R.id.paralelas);
+        estCabos = findViewById(R.id.cabos);
+        estTotal = findViewById(R.id.totalRF);
+
         renderData();
+    }
+
+    private void llenarSpinner(){
+
+        SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
+        String user=prefer.getString("mail","");
+
+        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+
+        cliente.post(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                if(statusCode == 200){
+                    cargarSpinner(new String(responseBody));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void cargarSpinner(String respuesta){
+        ArrayList<Test> lista= new ArrayList<Test>();
+        try{
+            JSONArray jsonArreglo = new JSONArray(respuesta);
+            for(int i=0; i<jsonArreglo.length();i++){
+                Test t= new Test();
+                t.setRegistro(jsonArreglo.getJSONObject(i).getString("registro"));
+                lista.add(t);
+            }
+            ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
+            fechas.setAdapter(a);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void renderData() {
@@ -91,7 +150,7 @@ public class ResistenciaFuerzaEst extends AppCompatActivity implements Response.
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://10.119.30.205/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
@@ -104,11 +163,18 @@ public class ResistenciaFuerzaEst extends AppCompatActivity implements Response.
 
 
     public void onResponse(JSONObject response) {
+        TestOptimo OmiTest = new TestOptimo();
         Test miTest = new Test();
+        JSONArray jsonOpt = response.optJSONArray("testoptimo");
+        JSONObject jsonObject1 = null;
         JSONArray json = response.optJSONArray("testpedagogico");
         JSONObject jsonObject = null;
 
         try {
+            jsonObject1 = jsonOpt.getJSONObject(0);
+            OmiTest.setOptBarras(jsonObject1.optString("barras"));
+            OmiTest.setOptParalelas(jsonObject1.optString("paralelas"));
+            OmiTest.setOptCabos(jsonObject1.optString("cabos"));
             jsonObject = json.getJSONObject(0);
             miTest.setBarras(jsonObject.optString("barras"));
             miTest.setParalelas(jsonObject.optString("paralelas"));
@@ -118,15 +184,19 @@ public class ResistenciaFuerzaEst extends AppCompatActivity implements Response.
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+        Integer optBarras = (Integer.parseInt(OmiTest.getOptBarras()));
+        Integer optParalelas = (Integer.parseInt(OmiTest.getOptParalelas()));
+        Integer optCabos = (Integer.parseInt(OmiTest.getOptCabos()));
+
         Integer barras = (Integer.parseInt(miTest.getBarras()));
         Integer paralelas = (Integer.parseInt(miTest.getParalelas()));
         Integer cabos = (Integer.parseInt(miTest.getCabos()));
 
 
         ArrayList<Entry> values1 = new ArrayList<Entry>();
-        values1.add(new Entry(1, 40));
-        values1.add(new Entry(2, 45));
-        values1.add(new Entry(3, 8));
+        values1.add(new Entry(1, optBarras));
+        values1.add(new Entry(2, optParalelas));
+        values1.add(new Entry(3, optCabos));
 
 
         ArrayList<Entry> values2 = new ArrayList<Entry>();
@@ -191,5 +261,15 @@ public class ResistenciaFuerzaEst extends AppCompatActivity implements Response.
             LineData data = new LineData(dataSets);
             mChart.setData(data);
         }
+        DecimalFormat formato = new DecimalFormat("#.##");
+        Float promedioBarras = (100-(((float)barras*100)/(float)optBarras));
+        Float promedioParalelas =(100-(((float)paralelas*100)/(float)optParalelas));
+        Float promedioCabos =(100-(((float)cabos*100)/(float)optCabos));
+        Float promedioTotal =(100-(((float)(barras+(float)paralelas+(float)cabos)*100)/((float)optBarras+(float)optParalelas+(float)optCabos)));
+
+        estBarras.setText("Porcentaje diferencial Barras: " + formato.format(promedioBarras) + "%");
+        estParalelas.setText("Porcentaje diferencial Paralelas: " + formato.format(promedioParalelas) + "%");
+        estCabos.setText("Porcentaje diferencial Cabos: " + formato.format(promedioCabos) + "%");
+        estTotal.setText("Porcentaje diferencial Total: " + formato.format(promedioTotal) + "%");
     }
 }

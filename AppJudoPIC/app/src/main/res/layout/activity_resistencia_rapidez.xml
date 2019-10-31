@@ -21,11 +21,20 @@
                 android:textStyle="bold"
                 android:text="Gráfica de Resistencia a la Rapidez"
                 android:textSize="20sp" />
+
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccione la fecha del test"/>
+
+            <Spinner android:id="@+id/spfecha"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="1:Ushikomi       2:Nagekomi 60[s]       3:Nagekomi 30[s]"
+                android:text=""
                 android:textSize="12sp"
                 android:lineSpacingExtra="6sp"/>
 
@@ -34,6 +43,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp" >
             </com.github.mikephil.charting.charts.LineChart>
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text=""
+                android:textSize="12sp"
+                android:lineSpacingExtra="6sp"/>
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Estadísticos"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/ushikomi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:hint="Ushikomi" />
+            <TextView
+                android:id="@+id/nagekomi60s"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:hint="Nagekomi 60s" />
+            <TextView
+                android:id="@+id/nagekomi30s"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:hint="Nagekomi 30s" />
+            <TextView
+                android:id="@+id/totalRR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:hint="General" />
 
 
         </LinearLayout>

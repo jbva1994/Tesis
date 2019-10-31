@@ -17,6 +17,37 @@ public class Test {
     private String pique_30m;
     private String pique_50m;
     private String pique_100m;
+    private String registro;
+
+    public Test() {
+    }
+
+    public Test(String barras, String paralelas, String cabos, String pecho, String abdomen, String cunclilla, String prom, String halon, String sentadilla, String ushikomi, String nagekomi_60s, String nagekomi_30s, String pique_30m, String pique_50m, String pique_100m, String registro) {
+        this.barras = barras;
+        this.paralelas = paralelas;
+        this.cabos = cabos;
+        this.pecho = pecho;
+        this.abdomen = abdomen;
+        this.cunclilla = cunclilla;
+        this.prom = prom;
+        this.halon = halon;
+        this.sentadilla = sentadilla;
+        this.ushikomi = ushikomi;
+        this.nagekomi_60s = nagekomi_60s;
+        this.nagekomi_30s = nagekomi_30s;
+        this.pique_30m = pique_30m;
+        this.pique_50m = pique_50m;
+        this.pique_100m = pique_100m;
+        this.registro = registro;
+    }
+
+    public String getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(String registro) {
+        this.registro = registro;
+    }
 
     public String getBarras() {
         return barras;
@@ -136,5 +167,10 @@ public class Test {
 
     public void setPique_100m(String pique_100m) {
         this.pique_100m = pique_100m;
+    }
+
+    @Override
+    public String toString(){
+        return registro;
     }
 }

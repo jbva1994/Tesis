@@ -22,20 +22,91 @@
                 android:text="Gráfica de Fuerza Explosiva"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView8"
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccione la fecha del test"/>
+
+            <Spinner android:id="@+id/spfecha"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btnGraficar"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="1:Pecho       2:Abdomen       3:Cuncilla"
-                android:textSize="12sp"
-                android:lineSpacingExtra="6sp"/>
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_fondo_color"
+                android:elevation="5dp"
+                android:text="Graficar"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text=""
+            android:textSize="12sp"
+            android:lineSpacingExtra="6sp"/>
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart2"
                 android:layout_width="match_parent"
-                android:layout_height="400dp" >
+                android:layout_height="400dp" />
 
-            </com.github.mikephil.charting.charts.LineChart>
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:lineSpacingExtra="6sp"/>
+
+                <TextView
+                    android:id="@+id/titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Estadísticos"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="sans" />
+
+                <TextView
+                    android:id="@+id/pecho"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    android:hint="Pecho" />
+                <TextView
+                    android:id="@+id/abdomen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    android:hint="Abdomen" />
+                <TextView
+                    android:id="@+id/cunclilla"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    android:hint="Cunclilla" />
+                <TextView
+                    android:id="@+id/totalFE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                    android:hint="General" />
+
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

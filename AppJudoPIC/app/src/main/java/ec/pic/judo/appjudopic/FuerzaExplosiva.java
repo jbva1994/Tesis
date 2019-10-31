@@ -7,6 +7,11 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,26 +31,49 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ec.pic.judo.appjudopic.modelo.Test;
+import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
 public class FuerzaExplosiva extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
-
     private LineChart mChart2;
     JsonObjectRequest jsonObjectRequest;
+    TextView estPecho, estAbdomen, estCunclilla, estTotal;
+
+    Button btnGraficar;
+
+    private Spinner fechas;
+    private AsyncHttpClient cliente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuerza_explosiva);
+
+        cliente= new AsyncHttpClient();
+        fechas=(Spinner)findViewById(R.id.spfecha);
+        llenarSpinner();
+
+        btnGraficar=(Button)findViewById(R.id.btnGraficar);
+
+        btnGraficar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listarWebService();
+            }
+        });
 
         mChart2 = findViewById(R.id.chart2);
         mChart2.animate();
@@ -57,7 +85,54 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
         mv.setChartView(mChart2);
         mChart2.setMarker(mv);
 
+        estPecho = findViewById(R.id.pecho);
+        estAbdomen = findViewById(R.id.abdomen);
+        estCunclilla = findViewById(R.id.cunclilla);
+        estTotal = findViewById(R.id.totalFE);
+
         renderData();
+
+
+    }
+
+
+    private void llenarSpinner(){
+
+        SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
+        String user=prefer.getString("mail","");
+
+        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+
+        cliente.post(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                if(statusCode == 200){
+                    cargarSpinner(new String(responseBody));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void cargarSpinner(String respuesta){
+        ArrayList<Test> lista= new ArrayList<Test>();
+        try{
+            JSONArray jsonArreglo = new JSONArray(respuesta);
+            for(int i=0; i<jsonArreglo.length();i++){
+                Test t= new Test();
+                t.setRegistro(jsonArreglo.getJSONObject(i).getString("registro"));
+                lista.add(t);
+            }
+            ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
+            fechas.setAdapter(a);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void renderData() {
@@ -85,17 +160,27 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
         mChart2.getAxisRight().setEnabled(false);
 
         cargarWebService();
+
     }
+
+    private void listarWebService() {
+
+        String url= "http://192.168.0.15/judopic/estadisticas_deportista - copia.php";
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
+        VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
 
     private void cargarWebService() {
 
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://10.119.30.205/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
+
 
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -105,11 +190,18 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
 
 
     public void onResponse(JSONObject response) {
+        TestOptimo OmiTest = new TestOptimo();
         Test miTest = new Test();
+        JSONArray jsonOpt = response.optJSONArray("testoptimo");
+        JSONObject jsonObject1 = null;
         JSONArray json = response.optJSONArray("testpedagogico");
         JSONObject jsonObject = null;
 
         try {
+            jsonObject1 = jsonOpt.getJSONObject(0);
+            OmiTest.setOptPecho(jsonObject1.optString("pecho"));
+            OmiTest.setOptAbdomen(jsonObject1.optString("abdomen"));
+            OmiTest.setOptCunclilla(jsonObject1.optString("cunclilla"));
             jsonObject = json.getJSONObject(0);
             miTest.setPecho(jsonObject.optString("pecho"));
             miTest.setAbdomen(jsonObject.optString("abdomen"));
@@ -119,15 +211,19 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+        Integer optPecho = (Integer.parseInt(OmiTest.getOptPecho()));
+        Integer optAbdomen = (Integer.parseInt(OmiTest.getOptAbdomen()));
+        Integer optCunclilla = (Integer.parseInt(OmiTest.getOptCunclilla()));
+
         Integer pecho = (Integer.parseInt(miTest.getPecho()));
         Integer abdomen = (Integer.parseInt(miTest.getAbdomen()));
         Integer cunclilla = (Integer.parseInt(miTest.getCunclilla()));
 
 
         ArrayList<Entry> values3 = new ArrayList<Entry>();
-        values3.add(new Entry(1, 25));
-        values3.add(new Entry(2, 25));
-        values3.add(new Entry(3, 25));
+        values3.add(new Entry(1, optPecho));
+        values3.add(new Entry(2, optAbdomen));
+        values3.add(new Entry(3, optCunclilla));
 
         ArrayList<Entry> values4 = new ArrayList<Entry>();
         values4.add(new Entry(1, pecho));
@@ -189,6 +285,17 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
             LineData data = new LineData(dataSets);
             mChart2.setData(data);
         }
+
+        DecimalFormat formato = new DecimalFormat("#.##");
+        Float promedioPecho = (100-(((float)pecho*100)/(float)optPecho));
+        Float promedioAbdomen = (100-(((float)abdomen*100)/(float)optAbdomen));
+        Float promedioCunclilla = (100-(((float)cunclilla*100)/(float)optCunclilla));
+        Float promedioTotal = (100-((((float)pecho+(float)abdomen+(float)cunclilla)*100)/((float)optPecho+(float)optAbdomen+(float)optCunclilla)));
+
+        estPecho.setText("Porcentaje diferencial Pecho: " + formato.format(promedioPecho) + "%");
+        estAbdomen.setText("Porcentaje diferencial Abdomen: " + formato.format(promedioAbdomen) + "%");
+        estCunclilla.setText("Porcentaje diferencial Cunclilla: " + formato.format(promedioCunclilla) + "%");
+        estTotal.setText("Porcentaje diferencial Total: " + formato.format(promedioTotal) + "%");
 
     }
 

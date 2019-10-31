@@ -7,6 +7,9 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,27 +29,39 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ec.pic.judo.appjudopic.modelo.Test;
+import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
 public class FuerzaMaximaEst extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     private LineChart mChart3;
     JsonObjectRequest jsonObjectRequest;
+    TextView estProm, estHalon, estSentadilla, estTotal;
+
+    private Spinner fechas;
+    private AsyncHttpClient cliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuerza_maxima_est);
+
+        cliente= new AsyncHttpClient();
+        fechas=(Spinner)findViewById(R.id.spfecha);
+        llenarSpinner();
 
         mChart3 = findViewById(R.id.chart3);
         mChart3.animate();
@@ -58,7 +73,51 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
         mv.setChartView(mChart3);
         mChart3.setMarker(mv);
 
+        estProm = findViewById(R.id.prom);
+        estHalon = findViewById(R.id.halon);
+        estSentadilla = findViewById(R.id.sentadilla);
+        estTotal = findViewById(R.id.totalFM);
+
         renderData();
+    }
+
+    private void llenarSpinner(){
+
+        SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
+        String user=prefer.getString("mail","");
+
+        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+
+        cliente.post(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                if(statusCode == 200){
+                    cargarSpinner(new String(responseBody));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void cargarSpinner(String respuesta){
+        ArrayList<Test> lista= new ArrayList<Test>();
+        try{
+            JSONArray jsonArreglo = new JSONArray(respuesta);
+            for(int i=0; i<jsonArreglo.length();i++){
+                Test t= new Test();
+                t.setRegistro(jsonArreglo.getJSONObject(i).getString("registro"));
+                lista.add(t);
+            }
+            ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
+            fechas.setAdapter(a);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void renderData() {
@@ -94,7 +153,7 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://10.119.30.205/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
@@ -107,11 +166,18 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
 
 
     public void onResponse(JSONObject response) {
+        TestOptimo  OmiTest = new TestOptimo();
         Test miTest = new Test();
+        JSONArray jsonOpt = response.optJSONArray("testoptimo");
+        JSONObject jsonObject1 = null;
         JSONArray json = response.optJSONArray("testpedagogico");
         JSONObject jsonObject = null;
 
         try {
+            jsonObject1 = jsonOpt.getJSONObject(0);
+            OmiTest.setOptProm(jsonObject1.optString("prom"));
+            OmiTest.setOptHalon(jsonObject1.optString("halon"));
+            OmiTest.setOptSentadilla(jsonObject1.optString("sentadilla"));
             jsonObject = json.getJSONObject(0);
             miTest.setProm(jsonObject.optString("prom"));
             miTest.setHalon(jsonObject.optString("halon"));
@@ -121,15 +187,19 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+        Float optProm = (Float.parseFloat(OmiTest.getOptProm()));
+        Float optHalon = (Float.parseFloat(OmiTest.getOptHalon()));
+        Float optSentadilla = (Float.parseFloat(OmiTest.getOptSentadilla()));
+
         Float prom = (Float.parseFloat(miTest.getProm()));
         Float halon = (Float.parseFloat(miTest.getHalon()));
         Float sentadilla = (Float.parseFloat(miTest.getSentadilla()));
 
 
         ArrayList<Entry> values5 = new ArrayList<Entry>();
-        values5.add(new Entry(1, 160));
-        values5.add(new Entry(2, 125));
-        values5.add(new Entry(3, 150));
+        values5.add(new Entry(1, optProm));
+        values5.add(new Entry(2, optHalon));
+        values5.add(new Entry(3, optSentadilla));
 
         ArrayList<Entry> values6 = new ArrayList<Entry>();
         values6.add(new Entry(1, prom));
@@ -191,6 +261,17 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
             LineData data = new LineData(dataSets);
             mChart3.setData(data);
         }
+
+        DecimalFormat formato = new DecimalFormat("#.##");
+        Float promedioProm =(100-((prom*100)/optProm));
+        Float promedioHalon =(100-((halon*100)/optHalon));
+        Float promedioSentadilla =(100-((sentadilla*100)/optSentadilla));
+        Float promedioTotal =(100-(((prom+halon+sentadilla)*100)/(optProm+optHalon+optSentadilla)));
+
+        estProm.setText("Porcentaje diferencial Prom: " + formato.format(promedioProm) + "%");
+        estHalon.setText("Porcentaje diferencial Halon: " + formato.format(promedioHalon) + "%");
+        estSentadilla.setText("Porcentaje diferencial Sentadilla: " + formato.format(promedioSentadilla) + "%");
+        estTotal.setText("Porcentaje diferencial Total: " + formato.format(promedioTotal) + "%");
 
     }
 

@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validarUsuario( "http://10.119.30.205/judopic/validar_usuario.php");
+                validarUsuario( "http://192.168.0.15/judopic/validar_usuario.php");
 
                 SharedPreferences prefer=getSharedPreferences("datos",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor=prefer.edit();

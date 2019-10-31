@@ -74,7 +74,7 @@ public class ResistenciaFuerza extends AppCompatActivity implements Response.Lis
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://10.119.30.205/judopic/entrenamiento_deportista.php?usuario="+user;
+        String url= "http://192.168.0.15/judopic/entrenamiento_deportista.php?usuario="+user;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }

@@ -7,6 +7,9 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,27 +29,39 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ec.pic.judo.appjudopic.modelo.Test;
+import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
 public class VelocidadTraslacion extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     private LineChart mChart5;
     JsonObjectRequest jsonObjectRequest;
+    TextView estPique30m, estPique50m, estPique100m, estTotal;
+
+    private Spinner fechas;
+    private AsyncHttpClient cliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_velocidad_traslacion);
+
+        cliente= new AsyncHttpClient();
+        fechas=(Spinner)findViewById(R.id.spfecha);
+        llenarSpinner();
 
         mChart5 = findViewById(R.id.chart5);
         mChart5.animate();
@@ -58,7 +73,51 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
         mv.setChartView(mChart5);
         mChart5.setMarker(mv);
 
+        estPique30m = findViewById(R.id.pique30m);
+        estPique50m = findViewById(R.id.pique50m);
+        estPique100m = findViewById(R.id.pique100m);
+        estTotal = findViewById(R.id.totalVT);
+
         renderData();
+    }
+
+    private void llenarSpinner(){
+
+        SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
+        String user=prefer.getString("mail","");
+
+        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+
+        cliente.post(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                if(statusCode == 200){
+                    cargarSpinner(new String(responseBody));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    private void cargarSpinner(String respuesta){
+        ArrayList<Test> lista= new ArrayList<Test>();
+        try{
+            JSONArray jsonArreglo = new JSONArray(respuesta);
+            for(int i=0; i<jsonArreglo.length();i++){
+                Test t= new Test();
+                t.setRegistro(jsonArreglo.getJSONObject(i).getString("registro"));
+                lista.add(t);
+            }
+            ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
+            fechas.setAdapter(a);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
     public void renderData() {
 
@@ -92,7 +151,7 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://10.119.30.205/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
@@ -105,11 +164,18 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
 
 
     public void onResponse(JSONObject response) {
+        TestOptimo OmiTest = new TestOptimo();
         Test miTest = new Test();
+        JSONArray jsonOpt = response.optJSONArray("testoptimo");
+        JSONObject jsonObject1 = null;
         JSONArray json = response.optJSONArray("testpedagogico");
         JSONObject jsonObject = null;
 
         try {
+            jsonObject1 = jsonOpt.getJSONObject(0);
+            OmiTest.setOptPique_30m(jsonObject1.optString("pique_30m"));
+            OmiTest.setOptPique_50m(jsonObject1.optString("pique_50m"));
+            OmiTest.setOptPique_100m(jsonObject1.optString("pique_100m"));
             jsonObject = json.getJSONObject(0);
             miTest.setPique_30m(jsonObject.optString("pique_30m"));
             miTest.setPique_50m(jsonObject.optString("pique_50m"));
@@ -119,15 +185,19 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+        Float optPique30 = (Float.parseFloat(OmiTest.getOptPique_30m()));
+        Float optPique50 = (Float.parseFloat(OmiTest.getOptPique_50m()));
+        Float optPique100 = (Float.parseFloat(OmiTest.getOptPique_100m()));
+
         Float pique_30m = (Float.parseFloat(miTest.getPique_30m()));
         Float pique_50m = (Float.parseFloat(miTest.getPique_50m()));
         Float pique_100m = (Float.parseFloat(miTest.getPique_100m()));
 
 
         ArrayList<Entry> values9 = new ArrayList<Entry>();
-        values9.add(new Entry(1, 8));
-        values9.add(new Entry(2, 11));
-        values9.add(new Entry(3, 20));
+        values9.add(new Entry(1, optPique30));
+        values9.add(new Entry(2, optPique50));
+        values9.add(new Entry(3, optPique100));
 
         ArrayList<Entry> values10 = new ArrayList<Entry>();
         values10.add(new Entry(1, pique_30m));
@@ -144,8 +214,8 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
             mChart5.getData().notifyDataChanged();
             mChart5.notifyDataSetChanged();
         } else {
-            set9 = new LineDataSet(values9, "Óptimo");
             set10 = new LineDataSet(values10, "Test Pedagógico");
+            set9 = new LineDataSet(values9, "Óptimo");
             set9.setDrawIcons(false);
             set9.enableDashedLine(10f, 5f, 0f);
             set9.enableDashedHighlightLine(10f, 5f, 0f);
@@ -184,12 +254,22 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
                 set10.setFillColor(Color.YELLOW);
             }
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set9);
             dataSets.add(set10);
+            dataSets.add(set9);
             LineData data = new LineData(dataSets);
             mChart5.setData(data);
         }
 
 
+        DecimalFormat formato = new DecimalFormat("#.##");
+        Float promedioPique30m =(((pique_30m*100)/optPique30)-100);
+        Float promedioPique50m =(((pique_50m*100)/optPique50)-100);
+        Float promedioPique100m =(((pique_100m*100)/optPique100)-100);
+        Float promedioTotal =((((pique_30m+pique_50m+pique_100m)*100)/(optPique30+optPique50+optPique100))-100);
+
+        estPique30m.setText("Porcentaje diferencial Pique 30m: " + formato.format(promedioPique30m) + "%");
+        estPique50m.setText("Porcentaje diferencial Pique 50m: " + formato.format(promedioPique50m) + "%");
+        estPique100m.setText("Porcentaje diferencial Pique 100m: " + formato.format(promedioPique100m) + "%");
+        estTotal.setText("Porcentaje diferencial Total: " + formato.format(promedioTotal) + "%");
     }
 }
