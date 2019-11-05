@@ -62,14 +62,25 @@
                                 <div class="col-md-3 mb-2">
                                     <div class="alert alert-warning alert-dismissible">
                                         <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        <strong>Tenga en cuenta que la Cédula debe pertenecer a un usuario previamente registrado.</strong>
+                                        <strong>La Cédula debe pertenecer a un usuario registrado.</strong>
                                     </div>
                                     <label for="validationTooltip01">Cédula</label>
                                     <input type="text" value="" name="txtCedula" class="form-control" id="validationTooltip01" pattern="^[0-9]{10}$"  oninvalid="setCustomValidity('Ingrese una cédula valida')" required>                                   
                                     <div class="invalid-feedback">
                                         Rellene este campo!
                                     </div>
-                                </div>           
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <div class="alert alert-warning alert-dismissible">
+                                        <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>Seleccione la fecha en la que se realizó el test pedagogico.</strong>
+                                    </div>
+                                    <label for="validationTooltip20">Fecha de Registro</label>
+                                    <input type="date" value="" name="txtRegistro" placeholder="Ejemplo: dd/mm/aaaa" class="form-control" id="validationTooltip20" pattern="^((0[1-9][/]|[1-9][/]|[12][0-9][/]|3[01][/])(0[1-9][/]|[1-9][/]|1[012][/])(19[2-9][0-9]|200[0-9]|201[0-9]))$" oninvalid="setCustomValidity('Ingresa una fecha valida dd/mm/aaaa')" required>                                   
+                                    <div class="invalid-feedback">
+                                        Rellene este campo!
+                                    </div>
+                                </div> 
                             </div>
                             <legend>Resistencia a la Fuerza:</legend>
                             <div class="form-row">

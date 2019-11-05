@@ -120,7 +120,7 @@
                                 <c:forEach var="test" items="${tests}">
                                     <tr>
                                         <td>${test.getCedula()}</td>
-                                        <td>${test.getFecha()}</td>
+                                        <td>${test.getRegistro()}</td>
                                         <td>${test.getBarras()}</td>
                                         <td>${test.getParalelas()}</td>
                                         <td>${test.getCabos()}</td>

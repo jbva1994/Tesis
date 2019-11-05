@@ -7,6 +7,7 @@ public class TestPedagogico extends Persona {
     int idtest;
     int idpersona;
     String fecha;
+    String registro;
     int barras;
     int paralelas;
     int cabos;
@@ -27,8 +28,9 @@ public class TestPedagogico extends Persona {
 
     }
 
-    public TestPedagogico(int idpersona, int barras, int paralelas, int cabos, int pecho, int abdomen, int cunclilla, double prom, double halon, double sentadilla, int ushikomi, int nagekomi60, int nagekomi30, double pique30, double pique50, double pique100) {
+    public TestPedagogico(int idpersona, String registro, int barras, int paralelas, int cabos, int pecho, int abdomen, int cunclilla, double prom, double halon, double sentadilla, int ushikomi, int nagekomi60, int nagekomi30, double pique30, double pique50, double pique100) {
         this.idpersona = idpersona;
+        this.registro = registro;
         this.barras = barras;
         this.paralelas = paralelas;
         this.cabos = cabos;
@@ -46,10 +48,10 @@ public class TestPedagogico extends Persona {
         this.pique100 = pique100;
     }
     
-    public TestPedagogico(int idpersona, String cedula,String fecha, int barras, int paralelas, int cabos, int pecho, int abdomen, int cunclilla, double prom, double halon, double sentadilla, int ushikomi, int nagekomi60, int nagekomi30, double pique30, double pique50, double pique100) {
+    public TestPedagogico(int idpersona, String cedula, String registro, int barras, int paralelas, int cabos, int pecho, int abdomen, int cunclilla, double prom, double halon, double sentadilla, int ushikomi, int nagekomi60, int nagekomi30, double pique30, double pique50, double pique100) {
         this.idpersona = idpersona;
         this.cedula = cedula;
-        this.fecha = fecha;
+        this.registro = registro;
         this.barras = barras;
         this.paralelas = paralelas;
         this.cabos = cabos;
@@ -218,6 +220,14 @@ public class TestPedagogico extends Persona {
 
     public void setPique100(double pique100) {
         this.pique100 = pique100;
+    }
+
+    public String getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(String registro) {
+        this.registro = registro;
     }
 
 }

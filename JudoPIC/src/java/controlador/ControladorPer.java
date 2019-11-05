@@ -203,6 +203,7 @@ public class ControladorPer extends HttpServlet {
                     String cedula = request.getParameter("txtCedula");
                     Persona pe = tdao.buscarId(cedula);
                     int idpersona = pe.getId();
+                    String registro = request.getParameter("txtRegistro");
                     int barras = Integer.parseInt(request.getParameter("txtBarras"));
                     int paralelas = Integer.parseInt(request.getParameter("txtParalelas"));
                     int cabos = Integer.parseInt(request.getParameter("txtCabos"));
@@ -220,6 +221,7 @@ public class ControladorPer extends HttpServlet {
                     double pique100 = Double.parseDouble(request.getParameter("txtPique100"));
 
                     test.setIdpersona(idpersona);
+                    test.setRegistro(registro);
                     test.setBarras(barras);
                     test.setParalelas(paralelas);
                     test.setCabos(cabos);
@@ -252,6 +254,7 @@ public class ControladorPer extends HttpServlet {
                     String cedulaA = request.getParameter("txtCedula");
                     Persona peA = tdao.buscarId(cedulaA);
                     int idpersonaA = peA.getId();
+                    String registroA = request.getParameter("txtRegistro");
                     int barrasA = Integer.parseInt(request.getParameter("txtBarras"));
                     int paralelasA = Integer.parseInt(request.getParameter("txtParalelas"));
                     int cabosA = Integer.parseInt(request.getParameter("txtCabos"));
@@ -268,6 +271,7 @@ public class ControladorPer extends HttpServlet {
                     double pique50A = Double.parseDouble(request.getParameter("txtPique50"));
                     double pique100A = Double.parseDouble(request.getParameter("txtPique100"));
                     test.setIdpersona(idpersonaA);
+                    test.setRegistro(registroA);
                     test.setBarras(barrasA);
                     test.setParalelas(paralelasA);
                     test.setCabos(cabosA);
