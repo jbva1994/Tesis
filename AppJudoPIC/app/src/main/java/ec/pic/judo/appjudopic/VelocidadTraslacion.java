@@ -7,6 +7,8 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,13 +47,13 @@ import ec.pic.judo.appjudopic.modelo.Test;
 import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
-public class VelocidadTraslacion extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class VelocidadTraslacion extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, AdapterView.OnItemSelectedListener{
 
     private LineChart mChart5;
     JsonObjectRequest jsonObjectRequest;
     TextView estPique30m, estPique50m, estPique100m, estTotal;
 
-    private Spinner fechas;
+    private Spinner registros;
     private AsyncHttpClient cliente;
 
     @Override
@@ -60,8 +62,9 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
         setContentView(R.layout.activity_velocidad_traslacion);
 
         cliente= new AsyncHttpClient();
-        fechas=(Spinner)findViewById(R.id.spfecha);
+        registros=(Spinner)findViewById(R.id.spfecha);
         llenarSpinner();
+        registros.setOnItemSelectedListener(this);
 
         mChart5 = findViewById(R.id.chart5);
         mChart5.animate();
@@ -78,7 +81,7 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
         estPique100m = findViewById(R.id.pique100m);
         estTotal = findViewById(R.id.totalVT);
 
-        renderData();
+        //renderData();
     }
 
     private void llenarSpinner(){
@@ -86,9 +89,9 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+        String url2= "http://192.168.1.23/judopic/historicos_deportista.php?usuario="+user;
 
-        cliente.post(url, new AsyncHttpResponseHandler() {
+        cliente.post(url2, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
                 if(statusCode == 200){
@@ -113,12 +116,13 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
                 lista.add(t);
             }
             ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
-            fechas.setAdapter(a);
+            registros.setAdapter(a);
         }catch (Exception e){
             e.printStackTrace();
         }
 
     }
+
     public void renderData() {
 
         LimitLine llXAxis5 = new LimitLine(1f, "Index 4");
@@ -144,16 +148,19 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
         leftAxis5.setDrawLimitLinesBehindData(false);
         mChart5.getAxisRight().setEnabled(false);
 
-        cargarWebService();
+        //cargarWebService();
     }
 
     private void cargarWebService() {
+
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
+        String seleccion = registros.getSelectedItem().toString();
 
-        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.1.23/judopic/estadisticas_deportista2.php?usuario="+user+"&registro="+seleccion;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
     }
 
     @Override
@@ -164,6 +171,7 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
 
 
     public void onResponse(JSONObject response) {
+        mChart5.clear();
         TestOptimo OmiTest = new TestOptimo();
         Test miTest = new Test();
         JSONArray jsonOpt = response.optJSONArray("testoptimo");
@@ -271,5 +279,16 @@ public class VelocidadTraslacion extends AppCompatActivity implements Response.L
         estPique50m.setText("Porcentaje diferencial Pique 50m: " + formato.format(promedioPique50m) + "%");
         estPique100m.setText("Porcentaje diferencial Pique 100m: " + formato.format(promedioPique100m) + "%");
         estTotal.setText("Porcentaje diferencial Total: " + formato.format(promedioTotal) + "%");
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        renderData();
+        cargarWebService();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

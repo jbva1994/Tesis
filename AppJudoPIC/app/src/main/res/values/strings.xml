@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppJudoPIC</string>
+    <string name="app_name">JudoPIC</string>
     <string name="actionsalir">Salir</string>
     <string name="actionperfil">PERFIL</string>
     <string name="actionestadisticas">ESTADISTICAS</string>

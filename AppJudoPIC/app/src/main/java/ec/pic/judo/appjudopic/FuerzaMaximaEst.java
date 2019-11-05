@@ -7,6 +7,8 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,13 +47,13 @@ import ec.pic.judo.appjudopic.modelo.Test;
 import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
-public class FuerzaMaximaEst extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class FuerzaMaximaEst extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, AdapterView.OnItemSelectedListener{
 
     private LineChart mChart3;
     JsonObjectRequest jsonObjectRequest;
     TextView estProm, estHalon, estSentadilla, estTotal;
 
-    private Spinner fechas;
+    private Spinner registros;
     private AsyncHttpClient cliente;
 
     @Override
@@ -60,8 +62,9 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
         setContentView(R.layout.activity_fuerza_maxima_est);
 
         cliente= new AsyncHttpClient();
-        fechas=(Spinner)findViewById(R.id.spfecha);
+        registros=(Spinner)findViewById(R.id.spfecha);
         llenarSpinner();
+        registros.setOnItemSelectedListener(this);
 
         mChart3 = findViewById(R.id.chart3);
         mChart3.animate();
@@ -78,7 +81,7 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
         estSentadilla = findViewById(R.id.sentadilla);
         estTotal = findViewById(R.id.totalFM);
 
-        renderData();
+        //renderData();
     }
 
     private void llenarSpinner(){
@@ -86,9 +89,9 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+        String url2= "http://192.168.1.23/judopic/historicos_deportista.php?usuario="+user;
 
-        cliente.post(url, new AsyncHttpResponseHandler() {
+        cliente.post(url2, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
                 if(statusCode == 200){
@@ -113,7 +116,7 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
                 lista.add(t);
             }
             ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
-            fechas.setAdapter(a);
+            registros.setAdapter(a);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -144,7 +147,7 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
         leftAxis3.setDrawLimitLinesBehindData(false);
         mChart3.getAxisRight().setEnabled(false);
 
-        cargarWebService();
+        //cargarWebService();
 
     }
 
@@ -152,10 +155,12 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
 
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
+        String seleccion = registros.getSelectedItem().toString();
 
-        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.1.23/judopic/estadisticas_deportista2.php?usuario="+user+"&registro="+seleccion;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
     }
 
     @Override
@@ -166,6 +171,7 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
 
 
     public void onResponse(JSONObject response) {
+        mChart3.clear();
         TestOptimo  OmiTest = new TestOptimo();
         Test miTest = new Test();
         JSONArray jsonOpt = response.optJSONArray("testoptimo");
@@ -275,5 +281,15 @@ public class FuerzaMaximaEst extends AppCompatActivity implements Response.Liste
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        renderData();
+        cargarWebService();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 
 }

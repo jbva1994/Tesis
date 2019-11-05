@@ -8,8 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,14 +47,12 @@ import ec.pic.judo.appjudopic.modelo.Test;
 import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
-public class FuerzaExplosiva extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class FuerzaExplosiva extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, AdapterView.OnItemSelectedListener{
     private LineChart mChart2;
     JsonObjectRequest jsonObjectRequest;
     TextView estPecho, estAbdomen, estCunclilla, estTotal;
 
-    Button btnGraficar;
-
-    private Spinner fechas;
+    private Spinner registros;
     private AsyncHttpClient cliente;
 
     @Override
@@ -63,17 +61,9 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
         setContentView(R.layout.activity_fuerza_explosiva);
 
         cliente= new AsyncHttpClient();
-        fechas=(Spinner)findViewById(R.id.spfecha);
+        registros=(Spinner)findViewById(R.id.spfecha);
         llenarSpinner();
-
-        btnGraficar=(Button)findViewById(R.id.btnGraficar);
-
-        btnGraficar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listarWebService();
-            }
-        });
+        registros.setOnItemSelectedListener(this);
 
         mChart2 = findViewById(R.id.chart2);
         mChart2.animate();
@@ -90,20 +80,17 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
         estCunclilla = findViewById(R.id.cunclilla);
         estTotal = findViewById(R.id.totalFE);
 
-        renderData();
-
-
+        //renderData();
     }
-
 
     private void llenarSpinner(){
 
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+        String url2= "http://192.168.1.23/judopic/historicos_deportista.php?usuario="+user;
 
-        cliente.post(url, new AsyncHttpResponseHandler() {
+        cliente.post(url2, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
                 if(statusCode == 200){
@@ -128,7 +115,7 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
                 lista.add(t);
             }
             ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
-            fechas.setAdapter(a);
+            registros.setAdapter(a);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -159,26 +146,20 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
         leftAxis2.setDrawLimitLinesBehindData(false);
         mChart2.getAxisRight().setEnabled(false);
 
-        cargarWebService();
+        //cargarWebService();
 
     }
-
-    private void listarWebService() {
-
-        String url= "http://192.168.0.15/judopic/estadisticas_deportista - copia.php";
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
-        VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
-    }
-
 
     private void cargarWebService() {
 
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
+        String seleccion = registros.getSelectedItem().toString();
 
-        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.1.23/judopic/estadisticas_deportista2.php?usuario="+user+"&registro="+seleccion;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
     }
 
 
@@ -190,22 +171,23 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
 
 
     public void onResponse(JSONObject response) {
+        mChart2.clear();
         TestOptimo OmiTest = new TestOptimo();
         Test miTest = new Test();
         JSONArray jsonOpt = response.optJSONArray("testoptimo");
-        JSONObject jsonObject1 = null;
-        JSONArray json = response.optJSONArray("testpedagogico");
         JSONObject jsonObject = null;
+        JSONArray json = response.optJSONArray("testpedagogico");
+        JSONObject jsonObject1 = null;
 
         try {
-            jsonObject1 = jsonOpt.getJSONObject(0);
-            OmiTest.setOptPecho(jsonObject1.optString("pecho"));
-            OmiTest.setOptAbdomen(jsonObject1.optString("abdomen"));
-            OmiTest.setOptCunclilla(jsonObject1.optString("cunclilla"));
-            jsonObject = json.getJSONObject(0);
-            miTest.setPecho(jsonObject.optString("pecho"));
-            miTest.setAbdomen(jsonObject.optString("abdomen"));
-            miTest.setCunclilla(jsonObject.optString("cunclilla"));
+            jsonObject = jsonOpt.getJSONObject(0);
+            OmiTest.setOptPecho(jsonObject.optString("pecho"));
+            OmiTest.setOptAbdomen(jsonObject.optString("abdomen"));
+            OmiTest.setOptCunclilla(jsonObject.optString("cunclilla"));
+            jsonObject1 = json.getJSONObject(0);
+            miTest.setPecho(jsonObject1.optString("pecho"));
+            miTest.setAbdomen(jsonObject1.optString("abdomen"));
+            miTest.setCunclilla(jsonObject1.optString("cunclilla"));
 
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -218,7 +200,6 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
         Integer pecho = (Integer.parseInt(miTest.getPecho()));
         Integer abdomen = (Integer.parseInt(miTest.getAbdomen()));
         Integer cunclilla = (Integer.parseInt(miTest.getCunclilla()));
-
 
         ArrayList<Entry> values3 = new ArrayList<Entry>();
         values3.add(new Entry(1, optPecho));
@@ -296,6 +277,18 @@ public class FuerzaExplosiva extends AppCompatActivity implements Response.Liste
         estAbdomen.setText("Porcentaje diferencial Abdomen: " + formato.format(promedioAbdomen) + "%");
         estCunclilla.setText("Porcentaje diferencial Cunclilla: " + formato.format(promedioCunclilla) + "%");
         estTotal.setText("Porcentaje diferencial Total: " + formato.format(promedioTotal) + "%");
+
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        renderData();
+        cargarWebService();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 

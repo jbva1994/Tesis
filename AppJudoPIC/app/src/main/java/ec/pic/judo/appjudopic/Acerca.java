@@ -32,7 +32,7 @@ public class Acerca extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("http://www.andreaardions.com/");
+                Uri uri = Uri.parse("http://www.facebook.com/jose.naranjo.71");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }

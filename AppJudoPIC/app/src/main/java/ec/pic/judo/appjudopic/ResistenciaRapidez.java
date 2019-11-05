@@ -7,6 +7,8 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,13 +47,13 @@ import ec.pic.judo.appjudopic.modelo.Test;
 import ec.pic.judo.appjudopic.modelo.TestOptimo;
 import ec.pic.judo.appjudopic.modelo.VolleySingleton;
 
-public class ResistenciaRapidez extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class ResistenciaRapidez extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, AdapterView.OnItemSelectedListener{
 
     private LineChart mChart4;
     JsonObjectRequest jsonObjectRequest;
     TextView estUshikomi, estNagekomi30s, estNagekomi60s, estTotal;
 
-    private Spinner fechas;
+    private Spinner registros;
     private AsyncHttpClient cliente;
 
     @Override
@@ -60,8 +62,9 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
         setContentView(R.layout.activity_resistencia_rapidez);
 
         cliente= new AsyncHttpClient();
-        fechas=(Spinner)findViewById(R.id.spfecha);
+        registros=(Spinner)findViewById(R.id.spfecha);
         llenarSpinner();
+        registros.setOnItemSelectedListener(this);
 
         mChart4 = findViewById(R.id.chart4);
         mChart4.animate();
@@ -78,7 +81,7 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
         estNagekomi30s = findViewById(R.id.nagekomi30s);
         estTotal = findViewById(R.id.totalRR);
 
-        renderData();
+        //renderData();
     }
 
     private void llenarSpinner(){
@@ -86,9 +89,9 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://192.168.0.15/judopic/historicos_deportista.php?usuario="+user;
+        String url2= "http://192.168.1.23/judopic/historicos_deportista.php?usuario="+user;
 
-        cliente.post(url, new AsyncHttpResponseHandler() {
+        cliente.post(url2, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
                 if(statusCode == 200){
@@ -113,13 +116,12 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
                 lista.add(t);
             }
             ArrayAdapter<Test> a = new ArrayAdapter<Test>(this, android.R.layout.simple_dropdown_item_1line, lista);
-            fechas.setAdapter(a);
+            registros.setAdapter(a);
         }catch (Exception e){
             e.printStackTrace();
         }
 
     }
-
 
     public void renderData() {
 
@@ -146,17 +148,19 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
         leftAxis4.setDrawLimitLinesBehindData(false);
         mChart4.getAxisRight().setEnabled(false);
 
-        cargarWebService();
+        //cargarWebService();
     }
 
     private void cargarWebService() {
 
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
+        String seleccion = registros.getSelectedItem().toString();
 
-        String url= "http://192.168.0.15/judopic/estadisticas_deportista.php?usuario="+user;
+        String url= "http://192.168.1.23/judopic/estadisticas_deportista2.php?usuario="+user+"&registro="+seleccion;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
     }
 
     @Override
@@ -167,6 +171,7 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
 
 
     public void onResponse(JSONObject response) {
+        mChart4.clear();
         TestOptimo OmiTest = new TestOptimo();
         Test miTest = new Test();
         JSONArray jsonOpt = response.optJSONArray("testoptimo");
@@ -273,6 +278,17 @@ public class ResistenciaRapidez extends AppCompatActivity implements Response.Li
         estNagekomi60s.setText("Porcentaje diferencial Nagekomi 60s: " + formato.format(promedioNagekomi60s) + "%");
         estNagekomi30s.setText("Porcentaje diferencial Nagekomi 30s: " + formato.format(promedioNagekomi30s) + "%");
         estTotal.setText("Porcentaje diferencial Total: " + formato.format(promedioTotal) + "%");
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        renderData();
+        cargarWebService();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }

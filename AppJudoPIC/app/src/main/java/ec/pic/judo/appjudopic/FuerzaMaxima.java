@@ -74,7 +74,7 @@ public class FuerzaMaxima extends AppCompatActivity implements Response.Listener
         SharedPreferences prefer=getSharedPreferences("datos", Context.MODE_PRIVATE);
         String user=prefer.getString("mail","");
 
-        String url= "http://192.168.0.15/judopic/entrenamiento_deportista.php?usuario="+user;
+        String url= "http://192.168.1.23/judopic/entrenamiento_deportista.php?usuario="+user;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null, (Response.Listener<JSONObject>) this,this);
         VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
